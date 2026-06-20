@@ -7,6 +7,7 @@ import {
   FaUser,
   FaKey,
 } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 interface User {
   nama: string;
@@ -19,6 +20,14 @@ interface NavbarProps {
 
 export default function Navbar({ user, toggleSidebar }: NavbarProps) {
   const [openDropdown, setOpenDropdown] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    navigate("/login");
+  };
 
   return (
     <header
@@ -101,12 +110,13 @@ export default function Navbar({ user, toggleSidebar }: NavbarProps) {
             </button>
 
             <button
+              onClick={handleLogout}
               className="
-                w-full flex items-center gap-3
-                px-4 py-3
-                text-red-500
-                hover:bg-red-50
-              "
+              w-full flex items-center gap-3
+              px-4 py-3
+              text-red-500
+              hover:bg-red-50
+            "
             >
               <FaSignOutAlt />
               Logout

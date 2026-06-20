@@ -69,35 +69,23 @@ export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
               px-4 py-3 rounded-xl
               transition
 
-              ${
-                isActive
-                  ? "text-white shadow-md"
-                  : "text-white/80 hover:text-white hover:bg-white/10"
+              ${isActive
+                ? "text-white shadow-md"
+                : "text-white/80 hover:text-white hover:bg-white/10"
               }
               `
             }
             style={({ isActive }) =>
               isActive
                 ? {
-                    backgroundColor: "#4382DF", // ACCENT ACTIVE COLOR
-                  }
+                  backgroundColor: "#4382DF", // ACCENT ACTIVE COLOR
+                }
                 : {}
             }
           >
             <FaHome />
             Dashboard
           </NavLink>
-
-          {/* Pengguna */}
-          {user?.role === "SuperAdmin" && (
-            <Link
-              to="/pengguna"
-              className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition"
-            >
-              <FaUser />
-              Pengguna
-            </Link>
-          )}
 
           {/* Prodi */}
           <Link
@@ -115,6 +103,14 @@ export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
           >
             <FaCheckCircle />
             Sertifikasi
+          </Link>
+
+          <Link
+            to="/pengguna"
+            className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition"
+          >
+            <FaUser />
+            Pengguna
           </Link>
         </nav>
       </aside>

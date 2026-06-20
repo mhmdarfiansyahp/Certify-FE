@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "../pages/LoginPage";
 import Layout from "../components/layout/Layout";
 import Dashboard from "../pages/Dashboard";
+import UserPage from "../pages/UserPage";
 
 export default function AppRoutes() {
   return (
@@ -17,6 +18,15 @@ export default function AppRoutes() {
           element={
             <Layout>
               <Dashboard />
+            </Layout>
+          }
+        />
+
+        <Route
+          path="/pengguna"
+          element={
+            <Layout>
+              <UserPage />
             </Layout>
           }
         />
