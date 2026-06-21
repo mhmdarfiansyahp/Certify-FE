@@ -1,5 +1,5 @@
 import { FaHome, FaUser, FaUniversity, FaCheckCircle } from "react-icons/fa";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 interface User {
   nama: string;
@@ -35,7 +35,7 @@ export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
           lg:translate-x-0
         `}
-        style={{ backgroundColor: "#4647AE" }} // SIDEBAR COLOR
+        style={{ backgroundColor: "#4647AE" }}
       >
         {/* LOGO */}
         <div
@@ -49,7 +49,6 @@ export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
           />
         </div>
 
-        {/* USER */}
         <div
           className="px-6 py-4 border-b"
           style={{ borderColor: "rgba(255,255,255,0.1)" }}
@@ -60,27 +59,18 @@ export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
 
         {/* MENU */}
         <nav className="flex-1 p-4 flex flex-col gap-2">
-          {/* Dashboard */}
           <NavLink
             to="/dashboard"
-            className={({ isActive }) =>
-              `
-              flex items-center gap-3
-              px-4 py-3 rounded-xl
-              transition
-
-              ${isActive
-                ? "text-white shadow-md"
-                : "text-white/80 hover:text-white hover:bg-white/10"
-              }
-              `
-            }
+            className={({
+              isActive,
+            }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition
+              ${
+                isActive
+                  ? "text-white shadow-md"
+                  : "text-white/80 hover:text-white hover:bg-white/10"
+              }`}
             style={({ isActive }) =>
-              isActive
-                ? {
-                  backgroundColor: "#4382DF", // ACCENT ACTIVE COLOR
-                }
-                : {}
+              isActive ? { backgroundColor: "#4382DF" } : {}
             }
           >
             <FaHome />
@@ -88,30 +78,59 @@ export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
           </NavLink>
 
           {/* Prodi */}
-          <Link
+          <NavLink
             to="/prodi"
-            className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition"
+            className={({
+              isActive,
+            }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition
+              ${
+                isActive
+                  ? "text-white shadow-md"
+                  : "text-white/80 hover:text-white hover:bg-white/10"
+              }`}
+            style={({ isActive }) =>
+              isActive ? { backgroundColor: "#4382DF" } : {}
+            }
           >
             <FaUniversity />
             Program Studi
-          </Link>
+          </NavLink>
 
-          {/* Sertifikasi */}
-          <Link
+          <NavLink
             to="/sertifikasi"
-            className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition"
+            className={({
+              isActive,
+            }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition
+              ${
+                isActive
+                  ? "text-white shadow-md"
+                  : "text-white/80 hover:text-white hover:bg-white/10"
+              }`}
+            style={({ isActive }) =>
+              isActive ? { backgroundColor: "#4382DF" } : {}
+            }
           >
             <FaCheckCircle />
             Sertifikasi
-          </Link>
+          </NavLink>
 
-          <Link
+          <NavLink
             to="/pengguna"
-            className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition"
+            className={({
+              isActive,
+            }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition
+              ${
+                isActive
+                  ? "text-white shadow-md"
+                  : "text-white/80 hover:text-white hover:bg-white/10"
+              }`}
+            style={({ isActive }) =>
+              isActive ? { backgroundColor: "#4382DF" } : {}
+            }
           >
             <FaUser />
             Pengguna
-          </Link>
+          </NavLink>
         </nav>
       </aside>
     </>

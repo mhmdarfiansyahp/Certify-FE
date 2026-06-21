@@ -1,116 +1,215 @@
-import { useState } from "react";
-import type { User } from "../../types/User";
+import { useEffect, useState } from "react";
+import { getProdi } from "../../service/prodiService";
+import type { Prodi } from "../../types/prodi";
+import { validateUser } from "../../utils/validators/userValidate";
+import { clearField } from "../../utils/utils";
 
-export default function UserModal({
-    user,
-    onClose,
-    onSave,
-}: any) {
+export default function UserModal({ user, onClose, onSave }: any) {
+  const isEdit = !!user;
+  const [errors, setErrors] = useState<any>({});
+  const [prodiList, setProdiList] = useState<Prodi[]>([]);
 
-    const [form, setForm] = useState({
-        name: user?.name || "",
-        username: user?.username || "",
-        email: user?.email || "",
-        role: user?.role || "admin",
-        status: user?.status ?? true,
-        password: "",
-    });
+  const [form, setForm] = useState({
+    name: user?.name || "",
+    username: user?.username || "",
+    email: user?.email || "",
+    role: user?.role || "",
+    prodi_id: user?.prodi_id || "",
+    status: user?.status ?? true,
+    password: "",
+  });
 
-    const handleSubmit = () => {
-        onSave(form);
-        onClose();
+  useEffect(() => {
+    const fetchProdi = async () => {
+      try {
+        const res = await getProdi();
+
+        setProdiList(res.data ?? res);
+      } catch (err) {
+        console.log("Gagal fetch prodi", err);
+      }
     };
 
-    return (
-        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
-            <div className="bg-white rounded-2xl w-full max-w-lg shadow-xl">
+    fetchProdi();
+  }, []);
 
-                {/* HEADER */}
-                <div className="p-6 border-b">
-                    <h2 className="text-xl font-semibold">
-                        {user ? "Edit User" : "Tambah User"}
-                    </h2>
-                </div>
+  const handleSubmit = () => {
+    const err = validateUser(form);
+    setErrors(err);
+    if (Object.keys(err).length > 0) return;
 
-                {/* BODY */}
-                <div className="p-6 space-y-4">
+    const payload = {
+      ...form,
+      status: isEdit ? form.status : true,
+    };
 
-                    <input
-                        className="w-full p-3 border rounded-xl"
-                        placeholder="Nama"
-                        value={form.name}
-                        onChange={(e) =>
-                            setForm({ ...form, name: e.target.value })
-                        }
-                    />
+    onSave(payload);
+    onClose();
+  };
 
-                    <input
-                        className="w-full p-3 border rounded-xl"
-                        placeholder="Username"
-                        value={form.username}
-                        onChange={(e) =>
-                            setForm({ ...form, username: e.target.value })
-                        }
-                    />
-
-                    <input
-                        className="w-full p-3 border rounded-xl"
-                        placeholder="Email"
-                        value={form.email}
-                        onChange={(e) =>
-                            setForm({ ...form, email: e.target.value })
-                        }
-                    />
-
-                    <select
-                        className="w-full p-3 border rounded-xl"
-                        value={form.role}
-                        onChange={(e) =>
-                            setForm({ ...form, role: e.target.value })
-                        }
-                    >
-                        <option value="admin">Admin</option>
-                        <option value="instruktur">Instruktur</option>
-                        <option value="mahasiswa">Mahasiswa</option>
-                    </select>
-
-                    <select
-                        className="w-full p-3 border rounded-xl"
-                        value={form.status ? "1" : "0"}
-                        onChange={(e) =>
-                            setForm({
-                                ...form,
-                                status: e.target.value === "1",
-                            })
-                        }
-                    >
-                        <option value="1">Aktif</option>
-                        <option value="0">Nonaktif</option>
-                    </select>
-
-                </div>
-
-                {/* FOOTER */}
-                <div className="p-6 border-t flex justify-end gap-3">
-
-                    <button
-                        onClick={onClose}
-                        className="px-5 py-2 border rounded-xl"
-                    >
-                        Batal
-                    </button>
-
-                    <button
-                        onClick={handleSubmit}
-                        className="px-5 py-2 bg-[#4647AE] text-white rounded-xl"
-                    >
-                        Simpan
-                    </button>
-
-                </div>
-
-            </div>
-
+  return (
+    <div className=" fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
+      <div className="bg-white rounded-lg w-full max-w-lg shadow-lg">
+        <div className="p-5 border-b">
+          <h2 className="text-lg font-semibold text-gray-800">
+            {isEdit ? "Edit User" : "Tambah User"}
+          </h2>
         </div>
-    );
+
+        <div className="p-5 space-y-4">
+          <div>
+            <label className="text-sm text-gray-600">
+              Nama
+              {!isEdit && <span className="text-red-500 ml-1">*</span>}{" "}
+            </label>
+            <input
+              className="w-full mt-1 p-2 border rounded-lg focus:outline-none"
+              placeholder="Nama"
+              value={form.name}
+              onChange={(e) => {
+                setForm({ ...form, name: e.target.value });
+                clearField(setErrors, "name");
+              }}
+            />
+
+            {errors.name && (
+              <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+            )}
+          </div>
+
+          <div>
+            <label className="text-sm text-gray-600">
+              Username
+              {!isEdit && <span className="text-red-500 ml-1">*</span>}{" "}
+            </label>
+
+            <input
+              className="w-full mt-1 p-2 border rounded-lg focus:outline-none"
+              placeholder="Username"
+              value={form.username}
+              onChange={(e) => {
+                setForm({ ...form, username: e.target.value });
+                clearField(setErrors, "username");
+              }}
+            />
+
+            {errors.username && (
+              <p className="text-red-500 text-xs mt-1">{errors.username}</p>
+            )}
+          </div>
+
+          <div>
+            <label className="text-sm text-gray-600">
+              Email
+              {!isEdit && <span className="text-red-500 ml-1">*</span>}{" "}
+            </label>
+
+            <input
+              className="w-full mt-1 p-2 border rounded-lg focus:outline-none"
+              placeholder="Email"
+              value={form.email}
+              onChange={(e) => {
+                setForm({ ...form, email: e.target.value });
+                clearField(setErrors, "email");
+              }}
+            />
+
+            {errors.email && (
+              <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+            )}
+          </div>
+
+          <div>
+            <label className="text-sm text-gray-600">
+              Role
+              {!isEdit && <span className="text-red-500 ml-1">*</span>}{" "}
+            </label>
+
+            <select
+              className="w-full mt-1 p-2 border rounded-lg focus:outline-none"
+              value={form.role}
+              onChange={(e) => {
+                setForm({ ...form, role: e.target.value });
+                clearField(setErrors, "role");
+              }}
+            >
+              <option value="" disabled>
+                Pilih Role
+              </option>
+              <option value="admin">Admin</option>
+              <option value="instruktur">Instruktur</option>
+              <option value="mahasiswa">Mahasiswa</option>
+            </select>
+
+            {errors.role && (
+              <p className="text-red-500 text-xs mt-1">{errors.role}</p>
+            )}
+          </div>
+
+          <div>
+            <label className="text-sm text-gray-600">
+              Program Studi
+              {!isEdit && <span className="text-red-500 ml-1">*</span>}{" "}
+            </label>
+
+            <select
+              className="w-full mt-1 p-2 border rounded-lg focus:outline-none"
+              value={form.prodi_id}
+              onChange={(e) => {
+                setForm({ ...form, prodi_id: e.target.value });
+                clearField(setErrors, "prodi_id");
+              }}
+            >
+              <option value="">Pilih Prodi</option>
+
+              {prodiList
+                .filter((p) => p.status === true)
+                .map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.nama_prodi}
+                  </option>
+                ))}
+            </select>
+
+            {errors.prodi_id && (
+              <p className="text-red-500 text-xs mt-1">{errors.prodi_id}</p>
+            )}
+          </div>
+
+          <div>
+            <label className="text-sm text-gray-600">
+              Password
+              {!isEdit && <span className="text-red-500 ml-1">*</span>}
+            </label>
+
+            <input
+              type="password"
+              className="w-full mt-1 p-2 border rounded-lg focus:outline-none"
+              placeholder={isEdit ? "•••••• (opsional)" : "Password"}
+              value={form.password}
+              onChange={(e) => {
+                setForm({ ...form, password: e.target.value });
+              }}
+            />
+          </div>
+        </div>
+
+        <div className="p-5 flex justify-end gap-2">
+          <button
+            onClick={onClose}
+            className="px-4 py-2 border rounded-lg hover:bg-gray-50"
+          >
+            Batal
+          </button>
+
+          <button
+            onClick={handleSubmit}
+            className="px-4 py-2 bg-[#4647AE] text-white rounded-lg hover:bg-[#3d3ea0]"
+          >
+            Simpan
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }

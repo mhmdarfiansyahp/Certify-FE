@@ -1,8 +1,4 @@
 import { useState } from "react";
-import type { ColumnDef } from "@tanstack/react-table";
-import type { User } from "../../types/user";
-import { cn } from "../../utils/utils";
-
 import {
   useReactTable,
   getCoreRowModel,
@@ -10,7 +6,7 @@ import {
   getFilteredRowModel,
   flexRender,
 } from "@tanstack/react-table";
-
+import type { ColumnDef } from "@tanstack/react-table";
 import {
   FaEdit,
   FaTrash,
@@ -19,41 +15,28 @@ import {
   FaChevronRight,
 } from "react-icons/fa";
 
-export default function UserTable({
+import type { Prodi } from "../../types/prodi";
+import { cn } from "../../utils/utils";
+
+export default function ProdiTable({
   data,
   onEdit,
   onDelete,
 }: {
-  data: User[];
-  onEdit: (user: User) => void;
+  data: Prodi[];
+  onEdit: (item: Prodi) => void;
   onDelete: (id: number) => void;
 }) {
   const [globalFilter, setGlobalFilter] = useState("");
 
-  const columns: ColumnDef<User>[] = [
+  const columns: ColumnDef<Prodi>[] = [
     {
       header: "No",
       cell: ({ row }) => <span className="text-gray-500">{row.index + 1}</span>,
     },
     {
-      header: "Nama",
-      accessorKey: "name",
-    },
-    {
-      header: "Username",
-      accessorKey: "username",
-    },
-    {
-      header: "Email",
-      accessorKey: "email",
-    },
-    {
-      header: "Role",
-      cell: ({ row }) => (
-        <span className="px-3 py-1 rounded-full text-xs font-medium bg-indigo-100 text-indigo-700">
-          {row.original.role}
-        </span>
-      ),
+      header: "Nama Prodi",
+      accessorKey: "nama_prodi",
     },
     {
       header: "Status",
@@ -124,7 +107,7 @@ export default function UserTable({
           <input
             value={globalFilter}
             onChange={(e) => setGlobalFilter(e.target.value)}
-            placeholder="Cari User..."
+            placeholder="Cari Program Studi..."
             className={cn(
               "w-full pl-10 pr-4 py-2.5 border border-gray-200",
               "rounded-xl text-sm focus:outline-none"

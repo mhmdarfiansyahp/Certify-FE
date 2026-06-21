@@ -3,6 +3,7 @@ import LoginPage from "../pages/LoginPage";
 import Layout from "../components/layout/Layout";
 import Dashboard from "../pages/Dashboard";
 import UserPage from "../pages/UserPage";
+import ProdiPage from "../pages/ProdiPage";
 
 export default function AppRoutes() {
   return (
@@ -21,12 +22,20 @@ export default function AppRoutes() {
             </Layout>
           }
         />
-
         <Route
           path="/pengguna"
           element={
             <Layout>
               <UserPage />
+            </Layout>
+          }
+        />
+
+        <Route
+          path="/prodi"
+          element={
+            <Layout>
+              <ProdiPage />
             </Layout>
           }
         />

@@ -1,24 +1,21 @@
 import { useEffect, useState } from "react";
-
-import UserTable from "../components/users/UserTable";
-import UserModal from "../components/users/UserModal";
+import type { Prodi } from "../types/prodi";
+import ProdiModal from "../components/prodi/ProdiModal";
+import ProdiTable from "../components/prodi/ProdiTable";
+import {
+  createProdi,
+  updateProdi,
+  getProdi,
+  deleteProdi,
+} from "../service/prodiService";
+import { toastSuccess, toastError, confirmDialog } from "../utils/alert";
 import TableSkeleton from "../components/ui/TableSkeleton";
 
-import type { User } from "../types/user";
+export default function ProdiPage() {
+  const [data, setData] = useState<Prodi[]>([]);
 
-import {
-  getUser,
-  createUser,
-  updateUser,
-  deleteUser,
-} from "../service/userService";
-
-import { toastSuccess, toastError, confirmDialog } from "../utils/alert";
-
-export default function UserPage() {
-  const [data, setData] = useState<User[]>([]);
   const [openModal, setOpenModal] = useState(false);
-  const [selected, setSelected] = useState<User | null>(null);
+  const [selected, setSelected] = useState<Prodi | null>(null);
   const [loading, setLoading] = useState(true);
 
   const handleAdd = () => {
@@ -26,36 +23,31 @@ export default function UserPage() {
     setOpenModal(true);
   };
 
-  const handleEdit = (user: User) => {
-    setSelected(user);
+  const handleEdit = (item: Prodi) => {
+    setSelected(item);
     setOpenModal(true);
   };
 
   const handleDelete = async (id: number) => {
     const result = await confirmDialog();
-
     if (result.isConfirmed) {
-      try {
-        await deleteUser(id);
-        await toastSuccess("User berhasil dihapus");
-        fetchUsers();
-      } catch (err) {
-        await toastError("Gagal menghapus user");
-      }
+      await deleteProdi(id);
+      await toastSuccess("Data berhasil dihapus");
+      fetchProdi();
     }
   };
 
   const handleSave = async (form: any) => {
     try {
       if (selected) {
-        await updateUser(selected.id, form);
-        await toastSuccess("User berhasil diupdate");
+        await updateProdi(selected.id, form);
+        await toastSuccess("Data berhasil diupdate");
       } else {
-        await createUser({ ...form, status: true });
-        await toastSuccess("User berhasil ditambahkan");
+        await createProdi({ ...form, status: true });
+        await toastSuccess("Data berhasil ditambahkan");
       }
 
-      fetchUsers();
+      fetchProdi();
       setOpenModal(false);
     } catch (err) {
       await toastError("Terjadi kesalahan");
@@ -63,13 +55,14 @@ export default function UserPage() {
   };
 
   useEffect(() => {
-    fetchUsers();
+    fetchProdi();
   }, []);
 
-  const fetchUsers = async () => {
+  const fetchProdi = async () => {
     try {
       setLoading(true);
-      const res = await getUser();
+
+      const res = await getProdi();
       setData(res);
     } finally {
       setLoading(false);
@@ -80,27 +73,27 @@ export default function UserPage() {
     <div className="min-h-screen bg-gray-50 p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Manajemen User</h1>
-          <p className="text-sm text-gray-500">CRUD data pengguna sistem</p>
+          <h1 className="text-2xl font-bold text-gray-800">Program Studi</h1>
+          <p className="text-sm text-gray-500">Kelola data prodi</p>
         </div>
 
         <button
           onClick={handleAdd}
           className="px-5 py-3 rounded-xl bg-[#4647AE] hover:bg-[#3d3ea0] text-white"
         >
-          Tambah User
+          Tambah Program Studi
         </button>
       </div>
 
       {loading ? (
         <TableSkeleton />
       ) : (
-        <UserTable data={data} onEdit={handleEdit} onDelete={handleDelete} />
+        <ProdiTable data={data} onEdit={handleEdit} onDelete={handleDelete} />
       )}
 
       {openModal && (
-        <UserModal
-          user={selected}
+        <ProdiModal
+          prodi={selected}
           onClose={() => setOpenModal(false)}
           onSave={handleSave}
         />

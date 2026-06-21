@@ -120,14 +120,10 @@ export default function SertifikasiTable({
 
       {/* TABLE */}
       <div className="overflow-auto">
-
         <table className="w-full text-sm">
-
           <thead className="bg-gray-50">
-
             {table.getHeaderGroups().map((hg) => (
               <tr key={hg.id}>
-
                 {hg.headers.map((header) => (
                   <th
                     key={header.id}
