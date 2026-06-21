@@ -60,7 +60,7 @@ export default function UserModal({ user, onClose, onSave }: any) {
           <div>
             <label className="text-sm text-gray-600">
               Nama
-              {!isEdit && <span className="text-red-500 ml-1">*</span>}{" "}
+              {!isEdit && <span className="text-red-500 ml-1">*</span>}
             </label>
             <input
               className="w-full mt-1 p-2 border rounded-lg focus:outline-none"

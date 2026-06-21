@@ -1,11 +1,12 @@
-import { FaHome, FaUser, FaUniversity, FaCheckCircle } from "react-icons/fa";
+import {
+  FaHome,
+  FaUser,
+  FaUniversity,
+  FaCheckCircle,
+  FaClipboardCheck,
+} from "react-icons/fa";
 import { NavLink } from "react-router-dom";
-
-interface User {
-  nama: string;
-  role: string;
-}
-
+import type { User } from "../../types/user";
 interface SidebarProps {
   user?: User | null;
   isOpen: boolean;
@@ -54,7 +55,7 @@ export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
           style={{ borderColor: "rgba(255,255,255,0.1)" }}
         >
           <p className="text-sm text-white/70">Welcome</p>
-          <h2 className="font-semibold">{user?.nama}</h2>
+          <h2 className="font-semibold">{user?.name}</h2>
         </div>
 
         {/* MENU */}
@@ -77,60 +78,103 @@ export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
             Dashboard
           </NavLink>
 
-          {/* Prodi */}
-          <NavLink
-            to="/prodi"
-            className={({
-              isActive,
-            }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition
+          {user?.role === "admin" && (
+            <>
+              <NavLink
+                to="/prodi"
+                className={({
+                  isActive,
+                }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition
               ${
                 isActive
                   ? "text-white shadow-md"
                   : "text-white/80 hover:text-white hover:bg-white/10"
               }`}
-            style={({ isActive }) =>
-              isActive ? { backgroundColor: "#4382DF" } : {}
-            }
-          >
-            <FaUniversity />
-            Program Studi
-          </NavLink>
+                style={({ isActive }) =>
+                  isActive ? { backgroundColor: "#4382DF" } : {}
+                }
+              >
+                <FaUniversity />
+                Program Studi
+              </NavLink>
 
-          <NavLink
-            to="/sertifikasi"
-            className={({
-              isActive,
-            }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition
+              <NavLink
+                to="/sertifikasi"
+                className={({
+                  isActive,
+                }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition
               ${
                 isActive
                   ? "text-white shadow-md"
                   : "text-white/80 hover:text-white hover:bg-white/10"
               }`}
-            style={({ isActive }) =>
-              isActive ? { backgroundColor: "#4382DF" } : {}
-            }
-          >
-            <FaCheckCircle />
-            Sertifikasi
-          </NavLink>
+                style={({ isActive }) =>
+                  isActive ? { backgroundColor: "#4382DF" } : {}
+                }
+              >
+                <FaCheckCircle />
+                Sertifikasi
+              </NavLink>
 
-          <NavLink
-            to="/pengguna"
-            className={({
-              isActive,
-            }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition
+              <NavLink
+                to="/pengguna"
+                className={({
+                  isActive,
+                }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition
               ${
                 isActive
                   ? "text-white shadow-md"
                   : "text-white/80 hover:text-white hover:bg-white/10"
               }`}
-            style={({ isActive }) =>
-              isActive ? { backgroundColor: "#4382DF" } : {}
-            }
-          >
-            <FaUser />
-            Pengguna
-          </NavLink>
+                style={({ isActive }) =>
+                  isActive ? { backgroundColor: "#4382DF" } : {}
+                }
+              >
+                <FaUser />
+                Pengguna
+              </NavLink>
+            </>
+          )}
+
+          {user?.role === "instruktur" && (
+            <>
+              <NavLink
+                to="/asesmen"
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-4 py-3 rounded-xl transition
+        ${
+          isActive
+            ? "text-white shadow-md"
+            : "text-white/80 hover:text-white hover:bg-white/10"
+        }`
+                }
+                style={({ isActive }) =>
+                  isActive ? { backgroundColor: "#4382DF" } : {}
+                }
+              >
+                <FaClipboardCheck />
+                Asesmen Mahasiswa
+              </NavLink>
+
+              <NavLink
+                to="/bukti-sertifikasi"
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-4 py-3 rounded-xl transition
+        ${
+          isActive
+            ? "text-white shadow-md"
+            : "text-white/80 hover:text-white hover:bg-white/10"
+        }`
+                }
+                style={({ isActive }) =>
+                  isActive ? { backgroundColor: "#4382DF" } : {}
+                }
+              >
+                <FaCheckCircle />
+                Bukti Sertifikasi
+              </NavLink>
+            </>
+          )}
         </nav>
       </aside>
     </>

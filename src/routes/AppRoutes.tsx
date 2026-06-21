@@ -4,16 +4,19 @@ import Layout from "../components/layout/Layout";
 import Dashboard from "../pages/Dashboard";
 import UserPage from "../pages/UserPage";
 import ProdiPage from "../pages/ProdiPage";
+import SertifikasiPage from "../pages/SertifikasiPage";
+import AsesmenPage from "../pages/AsesmenPage";
+import ProtectedRoute from "./ProtectedRoute";
+import BuktiSertifikasiPage from "../pages/BuktiSertifikasiPage";
 
 export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* redirect default */}
         <Route path="/" element={<Navigate to="/login" />} />
 
-        {/* login page */}
         <Route path="/login" element={<LoginPage />} />
+
         <Route
           path="/dashboard"
           element={
@@ -22,21 +25,58 @@ export default function AppRoutes() {
             </Layout>
           }
         />
-        <Route
-          path="/pengguna"
-          element={
-            <Layout>
-              <UserPage />
-            </Layout>
-          }
-        />
 
         <Route
           path="/prodi"
           element={
-            <Layout>
-              <ProdiPage />
-            </Layout>
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <Layout>
+                <ProdiPage />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/sertifikasi"
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <Layout>
+                <SertifikasiPage />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/pengguna"
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <Layout>
+                <UserPage />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/asesmen"
+          element={
+            <ProtectedRoute allowedRoles={["instruktur"]}>
+              <Layout>
+                <AsesmenPage />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/bukti-sertifikasi"
+          element={
+            <ProtectedRoute allowedRoles={["instruktur"]}>
+              <Layout>
+                <BuktiSertifikasiPage />
+              </Layout>
+            </ProtectedRoute>
           }
         />
       </Routes>
