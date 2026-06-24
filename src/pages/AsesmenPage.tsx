@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
+import { getSertifikasiProdi } from "../service/sertifikasiService";
 
 import {
   getMahasiswaAsesmen,
   saveBulkAsesmen,
 } from "../service/asesmenService";
 
-import type {
-  StatusAsesmen,
-  MahasiswaAsesmen,
-} from "../types/asesmen";
+import type { StatusAsesmen, MahasiswaAsesmen } from "../types/asesmen";
 
 import { toastSuccess, toastError } from "../utils/alert";
 import TableSkeleton from "../components/ui/TableSkeleton";
@@ -23,14 +21,14 @@ export default function AsesmenPage() {
     kelas: "A",
   });
 
-  const sertifikasiId = 1;
+  const [sertifikasiList, setSertifikasiList] = useState<any[]>([]);
+  const [sertifikasiId, setSertifikasiId] = useState<number>(0);
 
   const fetchData = async () => {
     try {
       setLoading(true);
 
-      const result = await getMahasiswaAsesmen(sertifikasiId);
-
+      const result = await getMahasiswaAsesmen(Number(sertifikasiId));
       setSertifikasi(result.sertifikasi);
       setData(result.data);
     } catch (error) {
@@ -42,19 +40,18 @@ export default function AsesmenPage() {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchSertifikasi();
   }, []);
 
-  const handleChangeStatus = (
-    id: number,
-    value: StatusAsesmen
-  ) => {
+  useEffect(() => {
+    if (sertifikasiId) {
+      fetchData();
+    }
+  }, [sertifikasiId]);
+
+  const handleChangeStatus = (id: number, value: StatusAsesmen) => {
     setData((prev) =>
-      prev.map((mhs) =>
-        mhs.id === id
-          ? { ...mhs, status: value }
-          : mhs
-      )
+      prev.map((mhs) => (mhs.id === id ? { ...mhs, status: value } : mhs))
     );
   };
 
@@ -71,41 +68,50 @@ export default function AsesmenPage() {
       };
 
       await saveBulkAsesmen(payload);
-
+      await fetchData();
       await toastSuccess("Asesmen berhasil disimpan");
     } catch (error) {
       console.error(error);
       await toastError("Gagal menyimpan asesmen");
     }
   };
+
+  const fetchSertifikasi = async () => {
+    try {
+      const result = await getSertifikasiProdi();
+
+      setSertifikasiList(result.data);
+
+      if (result.data.length > 0) {
+        setSertifikasiId(result.data[0].id);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 p-6 space-y-6">
-
       {/* HEADER */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">
             Asesmen Mahasiswa
           </h1>
-          <p className="text-sm text-gray-500">
-            Input hasil asesmen mahasiswa
-          </p>
+          <p className="text-sm text-gray-500">Input hasil asesmen mahasiswa</p>
         </div>
       </div>
 
       {/* FILTER */}
       <div className="bg-white rounded-2xl shadow border border-gray-100 p-5">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-
           {/* Batch */}
           <div>
             <label className="text-sm text-gray-600">Batch</label>
             <select
               className="w-full mt-1 p-2 border border-gray-300 rounded-lg"
               value={filter.batch}
-              onChange={(e) =>
-                setFilter({ ...filter, batch: e.target.value })
-              }
+              onChange={(e) => setFilter({ ...filter, batch: e.target.value })}
             >
               <option value="2026">Batch 2026</option>
               <option value="2025">Batch 2025</option>
@@ -118,22 +124,34 @@ export default function AsesmenPage() {
             <select
               className="w-full mt-1 p-2 border border-gray-300 rounded-lg"
               value={filter.kelas}
-              onChange={(e) =>
-                setFilter({ ...filter, kelas: e.target.value })
-              }
+              onChange={(e) => setFilter({ ...filter, kelas: e.target.value })}
             >
               <option value="A">Kelas A</option>
               <option value="B">Kelas B</option>
             </select>
           </div>
 
+          <div>
+            <label className="text-sm text-gray-600">Sertifikasi</label>
+
+            <select
+              className="w-full mt-1 p-2 border border-gray-300 rounded-lg"
+              value={sertifikasiId}
+              onChange={(e) => setSertifikasiId(Number(e.target.value))}
+            >
+              {sertifikasiList.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.nama_sertifikasi}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
 
       {/* INFO SERTIFIKASI */}
       <div className="bg-white rounded-2xl shadow border border-gray-100 p-5">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-
           <div>
             <p className="text-sm text-gray-500">Sertifikasi</p>
             <h2 className="text-xl font-bold text-gray-800">
@@ -150,9 +168,7 @@ export default function AsesmenPage() {
 
           <div>
             <p className="text-sm text-gray-500">Level</p>
-            <p className="text-gray-700">
-              {sertifikasi?.level}
-            </p>
+            <p className="text-gray-700">{sertifikasi?.level}</p>
           </div>
 
           <div>
@@ -161,19 +177,15 @@ export default function AsesmenPage() {
               Batch {filter.batch} - Kelas {filter.kelas}
             </p>
           </div>
-
         </div>
       </div>
 
       {/* TABLE */}
       <div className="bg-white rounded-2xl shadow border border-gray-100 overflow-hidden">
-
         {/* TABLE HEADER */}
         <div className="p-5 border-b border-gray-100 flex items-center justify-between">
           <div>
-            <h2 className="font-semibold text-gray-800">
-              Data Mahasiswa
-            </h2>
+            <h2 className="font-semibold text-gray-800">Data Mahasiswa</h2>
             <p className="text-sm text-gray-500">
               Total {data.length} mahasiswa
             </p>
@@ -193,7 +205,6 @@ export default function AsesmenPage() {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-
               <thead className="bg-gray-50 text-gray-600">
                 <tr>
                   <th className="px-5 py-3 text-left w-16">No</th>
@@ -231,28 +242,20 @@ export default function AsesmenPage() {
                         >
                           <option value="">Pilih Hasil</option>
                           <option value="Kompeten">Kompeten</option>
-                          <option value="Tidak Kompeten">
-                            Tidak Kompeten
-                          </option>
-                          <option value="Tidak Hadir">
-                            Tidak Hadir
-                          </option>
+                          <option value="Tidak Kompeten">Tidak Kompeten</option>
+                          <option value="Tidak Hadir">Tidak Hadir</option>
                         </select>
                       </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td
-                      colSpan={4}
-                      className="text-center py-12 text-gray-400"
-                    >
+                    <td colSpan={4} className="text-center py-12 text-gray-400">
                       Tidak ada data mahasiswa
                     </td>
                   </tr>
                 )}
               </tbody>
-
             </table>
           </div>
         )}

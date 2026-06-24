@@ -17,3 +17,9 @@ export const updateSertifikasi = async (id: number, data: Sertifikasi) => {
 export const deleteSertifikasi = async (id: number) => {
   return await api.delete(`/sertifikasi/${id}`);
 };
+
+export const getSertifikasiProdi = async () => {
+  const response = await api.get("/instruktur/sertifikasi");
+
+  return response.data;
+};
