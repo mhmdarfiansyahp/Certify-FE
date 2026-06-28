@@ -8,10 +8,7 @@ import {
   FaKey,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-
-interface User {
-  nama: string;
-}
+import type { User } from "../../types/user";
 
 interface NavbarProps {
   user?: User | null;
@@ -64,9 +61,8 @@ export default function Navbar({ user, toggleSidebar }: NavbarProps) {
           <FaUserCircle className="text-3xl text-slate-600" />
 
           <div className="hidden sm:block text-left">
-            <p className="text-sm font-semibold">{user?.nama}</p>
-
-            <p className="text-xs text-slate-500">Administrator</p>
+            <p className="text-sm font-semibold">{user?.name}</p>
+            <p className="text-xs text-slate-500">{user?.username}</p>
           </div>
 
           <FaChevronDown

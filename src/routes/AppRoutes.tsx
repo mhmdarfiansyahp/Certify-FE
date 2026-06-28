@@ -7,7 +7,7 @@ import ProdiPage from "../pages/ProdiPage";
 import SertifikasiPage from "../pages/SertifikasiPage";
 import AsesmenPage from "../pages/AsesmenPage";
 import ProtectedRoute from "./ProtectedRoute";
-import BuktiSertifikasiPage from "../pages/BuktiSertifikasiPage";
+import StatusKompetensiPage from "../pages/StatusKompetensiPage";
 
 export default function AppRoutes() {
   return (
@@ -70,11 +70,11 @@ export default function AppRoutes() {
           }
         />
         <Route
-          path="/bukti-sertifikasi"
+          path="/status-kompetensi"
           element={
-            <ProtectedRoute allowedRoles={["instruktur"]}>
+            <ProtectedRoute allowedRoles={["mahasiswa"]}>
               <Layout>
-                <BuktiSertifikasiPage />
+                <StatusKompetensiPage />
               </Layout>
             </ProtectedRoute>
           }

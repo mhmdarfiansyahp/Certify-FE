@@ -8,6 +8,7 @@ export interface MahasiswaAsesmen {
     nim: string;
     nama: string;
     status: StatusAsesmen | "";
+    bukti_pendukung?: string | null;
 }
 
 export interface BulkAsesmenPayload {

@@ -1,5 +1,5 @@
 import api from "../api/axios";
-import type { BulkAsesmenPayload } from "../types/asesmen";
+// import type { BulkAsesmenPayload } from "../types/asesmen";
 
 export const getMahasiswaAsesmen =
     async (sertifikasiId: number) => {
@@ -11,13 +11,11 @@ export const getMahasiswaAsesmen =
         return response.data;
     };
 
-export const saveBulkAsesmen = async (
-    payload: BulkAsesmenPayload
-) => {
-    const response = await api.post(
-        `/asesmen/bulk-input`,
-        payload
-    );
-
-    return response.data;
-};
+export const saveBulkAsesmen =
+    async (formData: FormData) => {
+        const response = await api.post(
+            `/asesmen/bulk-input`, formData, {
+                headers: { "Content-Type": "multipart/form-data", },
+        });
+        return response.data;
+    };

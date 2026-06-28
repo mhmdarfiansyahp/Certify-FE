@@ -4,6 +4,7 @@ import {
   FaUniversity,
   FaCheckCircle,
   FaClipboardCheck,
+  FaAward,
 } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import type { User } from "../../types/user";
@@ -65,10 +66,9 @@ export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
             className={({
               isActive,
             }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition
-              ${
-                isActive
-                  ? "text-white shadow-md"
-                  : "text-white/80 hover:text-white hover:bg-white/10"
+              ${isActive
+                ? "text-white shadow-md"
+                : "text-white/80 hover:text-white hover:bg-white/10"
               }`}
             style={({ isActive }) =>
               isActive ? { backgroundColor: "#4382DF" } : {}
@@ -85,11 +85,10 @@ export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
                 className={({
                   isActive,
                 }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition
-              ${
-                isActive
-                  ? "text-white shadow-md"
-                  : "text-white/80 hover:text-white hover:bg-white/10"
-              }`}
+              ${isActive
+                    ? "text-white shadow-md"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
+                  }`}
                 style={({ isActive }) =>
                   isActive ? { backgroundColor: "#4382DF" } : {}
                 }
@@ -103,11 +102,10 @@ export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
                 className={({
                   isActive,
                 }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition
-              ${
-                isActive
-                  ? "text-white shadow-md"
-                  : "text-white/80 hover:text-white hover:bg-white/10"
-              }`}
+              ${isActive
+                    ? "text-white shadow-md"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
+                  }`}
                 style={({ isActive }) =>
                   isActive ? { backgroundColor: "#4382DF" } : {}
                 }
@@ -121,11 +119,10 @@ export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
                 className={({
                   isActive,
                 }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition
-              ${
-                isActive
-                  ? "text-white shadow-md"
-                  : "text-white/80 hover:text-white hover:bg-white/10"
-              }`}
+              ${isActive
+                    ? "text-white shadow-md"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
+                  }`}
                 style={({ isActive }) =>
                   isActive ? { backgroundColor: "#4382DF" } : {}
                 }
@@ -142,11 +139,10 @@ export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
                 to="/asesmen"
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-4 py-3 rounded-xl transition
-        ${
-          isActive
-            ? "text-white shadow-md"
-            : "text-white/80 hover:text-white hover:bg-white/10"
-        }`
+                ${isActive
+                    ? "text-white shadow-md"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
+                  }`
                 }
                 style={({ isActive }) =>
                   isActive ? { backgroundColor: "#4382DF" } : {}
@@ -155,25 +151,26 @@ export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
                 <FaClipboardCheck />
                 Asesmen Mahasiswa
               </NavLink>
-
-              <NavLink
-                to="/bukti-sertifikasi"
-                className={({ isActive }) =>
-                  `flex items-center gap-3 px-4 py-3 rounded-xl transition
-        ${
-          isActive
-            ? "text-white shadow-md"
-            : "text-white/80 hover:text-white hover:bg-white/10"
-        }`
-                }
-                style={({ isActive }) =>
-                  isActive ? { backgroundColor: "#4382DF" } : {}
-                }
-              >
-                <FaCheckCircle />
-                Bukti Sertifikasi
-              </NavLink>
             </>
+          )}
+
+          {user?.role === "mahasiswa" && (
+            <NavLink
+              to="/status-kompetensi"
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-4 py-3 rounded-xl transition
+              ${isActive
+                  ? "text-white shadow-md"
+                  : "text-white/80 hover:text-white hover:bg-white/10"
+                }`
+              }
+              style={({ isActive }) =>
+                isActive ? { backgroundColor: "#4382DF" } : {}
+              }
+            >
+              <FaAward />
+              Status Kompetensi
+            </NavLink>
           )}
         </nav>
       </aside>
