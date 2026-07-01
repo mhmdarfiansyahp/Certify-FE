@@ -10,6 +10,8 @@ import {
 
 import { Bar } from "react-chartjs-2";
 
+import type { DashboardKompetensi } from "../../types/dashboard";
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -19,18 +21,34 @@ ChartJS.register(
   Legend
 );
 
-export default function ChartSection({ data }: any) {
+interface Props {
+  data: DashboardKompetensi[];
+}
 
-  const labels = data.map((d: any) => d.nama_sertifikasi);
+export default function ChartSection({ data }: Props) {
+
+  const labels = data.map((d) => d.nama_prodi);
 
   const chartData = {
     labels,
     datasets: [
       {
-        label: "Jumlah Sertifikasi",
-        data: data.map(() => 1),
-        backgroundColor: "#4382DF",
-        borderRadius: 8,
+        label: "Kompeten",
+        data: data.map((d) => d.kompeten),
+        backgroundColor: "#22c55e",
+        borderRadius: 6,
+      },
+      {
+        label: "Tidak Kompeten",
+        data: data.map((d) => d.tidak_kompeten),
+        backgroundColor: "#ef4444",
+        borderRadius: 6,
+      },
+      {
+        label: "Tidak Hadir",
+        data: data.map((d) => d.tidak_hadir),
+        backgroundColor: "#f59e0b",
+        borderRadius: 6,
       },
     ],
   };
@@ -39,7 +57,7 @@ export default function ChartSection({ data }: any) {
     responsive: true,
     plugins: {
       legend: {
-        display: false,
+        position: "top" as const,
       },
     },
   };
@@ -49,11 +67,11 @@ export default function ChartSection({ data }: any) {
 
       <div className="mb-5">
         <h2 className="font-semibold text-gray-800">
-          Grafik Sertifikasi
+          Rekap Kompetensi Per Prodi
         </h2>
 
         <p className="text-sm text-gray-500">
-          Statistik keseluruhan sertifikasi
+          Statistik kompetensi mahasiswa berdasarkan prodi
         </p>
       </div>
 

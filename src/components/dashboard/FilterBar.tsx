@@ -1,3 +1,8 @@
+import { useEffect, useState } from "react";
+
+import { getProdi } from "../../service/prodiService";
+import { getSertifikasi } from "../../service/sertifikasiService";
+
 interface Props {
   onChange: (
     year: string,
@@ -7,6 +12,44 @@ interface Props {
 }
 
 export default function FilterBar({ onChange }: Props) {
+
+  const [year, setYear] = useState("");
+  const [prodi, setProdi] = useState("");
+  const [sertifikasi, setSertifikasi] = useState("");
+
+  const [prodiList, setProdiList] = useState<any[]>([]);
+  const [sertifikasiList, setSertifikasiList] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const prodiData = await getProdi();
+      const sertifikasiData = await getSertifikasi();
+
+      setProdiList(prodiData);
+      setSertifikasiList(sertifikasiData);
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleChange = (
+    y: string,
+    p: string,
+    s: string
+  ) => {
+    onChange(y, p, s);
+  };
+
+  const years = Array.from(
+    { length: 5 },
+    (_, i) => new Date().getFullYear() - i
+  );
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
@@ -17,21 +60,23 @@ export default function FilterBar({ onChange }: Props) {
         </label>
 
         <select
-          className="
-            w-full px-4 py-3 rounded-xl
-            border border-gray-200
-            bg-white
-            text-sm
-            outline-none
-            focus:ring-2
-            focus:ring-[#4382DF]
-            transition
-          "
-          onChange={(e) => onChange(e.target.value, "", "")}
+          value={year}
+          onChange={(e) => {
+            const value = e.target.value;
+
+            setYear(value);
+
+            handleChange(value, prodi, sertifikasi);
+          }}
+          className="w-full px-4 py-3 rounded-xl border border-gray-200"
         >
-          <option value="">Pilih Tahun</option>
-          <option value="2026">2026</option>
-          <option value="2025">2025</option>
+          <option value="">Semua Tahun</option>
+
+          {years.map((item) => (
+            <option key={item} value={item}>
+              {item}
+            </option>
+          ))}
         </select>
       </div>
 
@@ -42,21 +87,26 @@ export default function FilterBar({ onChange }: Props) {
         </label>
 
         <select
-          className="
-            w-full px-4 py-3 rounded-xl
-            border border-gray-200
-            bg-white
-            text-sm
-            outline-none
-            focus:ring-2
-            focus:ring-[#4382DF]
-            transition
-          "
-          onChange={(e) => onChange("", e.target.value, "")}
+          value={prodi}
+          onChange={(e) => {
+            const value = e.target.value;
+
+            setProdi(value);
+
+            handleChange(year, value, sertifikasi);
+          }}
+          className="w-full px-4 py-3 rounded-xl border border-gray-200"
         >
-          <option value="">Pilih Prodi</option>
-          <option value="1">Informatika</option>
-          <option value="2">Sistem Informasi</option>
+          <option value="">Semua Prodi</option>
+
+          {prodiList.map((item) => (
+            <option
+              key={item.id}
+              value={item.id}
+            >
+              {item.nama_prodi}
+            </option>
+          ))}
         </select>
       </div>
 
@@ -67,21 +117,26 @@ export default function FilterBar({ onChange }: Props) {
         </label>
 
         <select
-          className="
-            w-full px-4 py-3 rounded-xl
-            border border-gray-200
-            bg-white
-            text-sm
-            outline-none
-            focus:ring-2
-            focus:ring-[#4382DF]
-            transition
-          "
-          onChange={(e) => onChange("", "", e.target.value)}
+          value={sertifikasi}
+          onChange={(e) => {
+            const value = e.target.value;
+
+            setSertifikasi(value);
+
+            handleChange(year, prodi, value);
+          }}
+          className="w-full px-4 py-3 rounded-xl border border-gray-200"
         >
-          <option value="">Pilih Sertifikasi</option>
-          <option value="1">Web Development</option>
-          <option value="2">UI/UX Design</option>
+          <option value="">Semua Sertifikasi</option>
+
+          {sertifikasiList.map((item) => (
+            <option
+              key={item.id}
+              value={item.id}
+            >
+              {item.nama_sertifikasi}
+            </option>
+          ))}
         </select>
       </div>
 
