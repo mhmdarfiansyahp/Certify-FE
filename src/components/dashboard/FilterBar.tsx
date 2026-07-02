@@ -28,10 +28,8 @@ export default function FilterBar({ onChange }: Props) {
     try {
       const prodiData = await getProdi();
       const sertifikasiData = await getSertifikasi();
-
       setProdiList(prodiData);
       setSertifikasiList(sertifikasiData);
-
     } catch (error) {
       console.error(error);
     }
@@ -52,8 +50,6 @@ export default function FilterBar({ onChange }: Props) {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-
-      {/* TAHUN */}
       <div>
         <label className="block text-sm font-medium text-gray-600 mb-2">
           Tahun
@@ -63,15 +59,12 @@ export default function FilterBar({ onChange }: Props) {
           value={year}
           onChange={(e) => {
             const value = e.target.value;
-
             setYear(value);
-
             handleChange(value, prodi, sertifikasi);
           }}
-          className="w-full px-4 py-3 rounded-xl border border-gray-200"
-        >
-          <option value="">Semua Tahun</option>
+          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none">
 
+          <option value="">Semua Tahun</option>
           {years.map((item) => (
             <option key={item} value={item}>
               {item}
@@ -85,25 +78,18 @@ export default function FilterBar({ onChange }: Props) {
         <label className="block text-sm font-medium text-gray-600 mb-2">
           Program Studi
         </label>
-
         <select
           value={prodi}
           onChange={(e) => {
             const value = e.target.value;
-
             setProdi(value);
-
             handleChange(year, value, sertifikasi);
           }}
-          className="w-full px-4 py-3 rounded-xl border border-gray-200"
-        >
+          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none">
           <option value="">Semua Prodi</option>
 
           {prodiList.map((item) => (
-            <option
-              key={item.id}
-              value={item.id}
-            >
+            <option key={item.id} value={item.id}>
               {item.nama_prodi}
             </option>
           ))}
@@ -120,26 +106,19 @@ export default function FilterBar({ onChange }: Props) {
           value={sertifikasi}
           onChange={(e) => {
             const value = e.target.value;
-
             setSertifikasi(value);
-
             handleChange(year, prodi, value);
           }}
-          className="w-full px-4 py-3 rounded-xl border border-gray-200"
-        >
+          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none">
           <option value="">Semua Sertifikasi</option>
 
           {sertifikasiList.map((item) => (
-            <option
-              key={item.id}
-              value={item.id}
-            >
+            <option key={item.id} value={item.id}>
               {item.nama_sertifikasi}
             </option>
           ))}
         </select>
       </div>
-
     </div>
   );
 }

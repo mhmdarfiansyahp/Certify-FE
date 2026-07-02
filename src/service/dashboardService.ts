@@ -1,5 +1,8 @@
 import api from "../api/axios";
-import type { DashboardKompetensi } from "../types/dashboard";
+
+import type {
+    DashboardResponse
+} from "../types/dashboard";
 
 export interface DashboardFilter {
     tahun?: string;
@@ -9,7 +12,7 @@ export interface DashboardFilter {
 
 export const getDashboardKompetensi = async (
     params?: DashboardFilter
-): Promise<DashboardKompetensi[]> => {
+): Promise<DashboardResponse> => {
 
     const response = await api.get(
         "/dashboard/kompetensi-prodi",
@@ -17,5 +20,44 @@ export const getDashboardKompetensi = async (
             params,
         }
     );
-    return response.data.data;
+
+    return response.data;
+};
+
+export const exportDashboardExcel = async (
+    params?: {
+        tahun?: string;
+        sertifikasi_id?: string;
+        prodi_id?: string;
+    }
+) => {
+
+    const response = await api.get(
+        "/dashboard/export-excel",
+        {
+            params,
+            responseType: "blob",
+        }
+    );
+
+    return response.data;
+};
+
+export const exportDashboardPdf = async (
+    params?: {
+        tahun?: string;
+        sertifikasi_id?: string;
+        prodi_id?: string;
+    }
+) => {
+
+    const response = await api.get(
+        "/dashboard/export-pdf",
+        {
+            params,
+            responseType: "blob",
+        }
+    );
+
+    return response.data;
 };
