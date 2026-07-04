@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import type { User } from "../../types/user";
+import { cn } from "../../utils/utils";
 
 interface NavbarProps {
   user?: User | null;
@@ -26,24 +27,32 @@ export default function Navbar({ user, toggleSidebar }: NavbarProps) {
     navigate("/login");
   };
 
+  const handleProfile = () => {
+    navigate("/profile");
+    setOpenDropdown(false);
+  };
+
+  const handleChangePassword = () => {
+    navigate("/change-password");
+    setOpenDropdown(false);
+  };
+
   return (
     <header
-      className="
-        fixed top-0 right-0 left-0
-        lg:left-64
-        h-16 bg-white border-b border-gray-200
-        shadow-sm flex items-center justify-between
-        px-6 z-30
-      "
-    >
+      className={cn(
+        "fixed top-0 right-0 left-0",
+        "lg:left-64",
+        "h-16 bg-white border-b border-gray-200",
+        "shadow-sm flex items-center justify-between",
+        "px-6 z-30")}>
+
       {/* Mobile Hamburger */}
       <button
         onClick={toggleSidebar}
-        className="
-          text-2xl text-slate-700
-          lg:hidden
-        "
-      >
+        className={cn(
+          "text-2xl text-slate-700",
+          "lg:hidden")}>
+
         <FaBars />
       </button>
 
@@ -51,13 +60,13 @@ export default function Navbar({ user, toggleSidebar }: NavbarProps) {
       <div className="ml-auto relative">
         <button
           onClick={() => setOpenDropdown(!openDropdown)}
-          className="
-            flex items-center gap-3
-            hover:bg-slate-100
-            px-3 py-2 rounded-lg
-            transition
-          "
-        >
+          className={cn(
+            "flex items-center gap-3",
+            "hover:bg-slate-100",
+            "px-3 py-2 rounded-lg",
+            "transition"
+          )}>
+
           <FaUserCircle className="text-3xl text-slate-600" />
 
           <div className="hidden sm:block text-left">
@@ -66,54 +75,53 @@ export default function Navbar({ user, toggleSidebar }: NavbarProps) {
           </div>
 
           <FaChevronDown
-            className="
-              text-sm text-slate-500
-            "
-          />
+            className="text-sm text-slate-500" />
         </button>
 
         {/* Dropdown */}
         {openDropdown && (
           <div
-            className="
-              absolute right-0 mt-2
-              w-52 bg-white
-              rounded-xl shadow-lg
-              border border-slate-200
-              overflow-hidden
-            "
-          >
+            className={cn(
+              "absolute right-0 mt-2",
+              "w-52 bg-white",
+              "rounded-xl shadow-lg",
+              "border border-slate-200",
+              "overflow-hidden"
+            )}>
+
             <button
-              className="
-                w-full flex items-center gap-3
-                px-4 py-3
-                hover:bg-slate-100
-              "
-            >
+              onClick={handleProfile}
+              className={cn(
+                "w-full flex items-center gap-3",
+                "px-4 py-3",
+                "hover:bg-slate-100",
+                "transition"
+              )}>
               <FaUser />
               Profile
             </button>
 
             <button
-              className="
-                w-full flex items-center gap-3
-                px-4 py-3
-                hover:bg-slate-100
-              "
-            >
+              onClick={handleChangePassword}
+              className={cn(
+                "w-full flex items-center gap-3",
+                "px-4 py-3",
+                "hover:bg-slate-100"
+              )}>
+
               <FaKey />
               Change Password
             </button>
 
             <button
               onClick={handleLogout}
-              className="
-              w-full flex items-center gap-3
-              px-4 py-3
-              text-red-500
-              hover:bg-red-50
-            "
-            >
+              className={cn(
+                "w-full flex items-center gap-3",
+                "px-4 py-3",
+                "text-red-500",
+                "hover:bg-red-50"
+              )}>
+
               <FaSignOutAlt />
               Logout
             </button>

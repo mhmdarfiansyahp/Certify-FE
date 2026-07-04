@@ -80,9 +80,7 @@ export default function ChartSection({
 
   const options = {
     responsive: true,
-
     maintainAspectRatio: false,
-
     plugins: {
 
       legend: {
@@ -134,16 +132,16 @@ export default function ChartSection({
       )}>
       <div className="mb-8">
 
-        <h2 className="
-          text-xl font-semibold
-          text-gray-800
-        ">
+        <h2 className={cn(
+          "text-xl font-semibold",
+          "text-gray-800")}>
+            
           Rekap Kompetensi Per Prodi
         </h2>
 
-        <p className="
-          text-sm text-gray-500 mt-2
-        ">
+        <p className={cn(
+          "text-sm text-gray-500 mt-2")}>
+
           Statistik kompetensi mahasiswa
           berdasarkan program studi
         </p>

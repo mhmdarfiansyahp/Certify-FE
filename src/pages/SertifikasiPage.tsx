@@ -13,6 +13,7 @@ import { toastSuccess, toastError, confirmDialog } from "../utils/alert";
 
 import type { Sertifikasi } from "../types/sertifikasi";
 import TableSkeleton from "../components/ui/TableSkeleton";
+import { Link } from "react-router-dom";
 
 export default function SertifikasiPage() {
   const [data, setData] = useState<Sertifikasi[]>([]);
@@ -77,7 +78,18 @@ export default function SertifikasiPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6 space-y-6">
+    <div className="bg-gray-50 p-6 space-y-6">
+      <div className="flex items-center gap-2 text-sm">
+        <Link
+          to="/dashboard"
+          className="hover:text-[#4647AE] transition">
+          Dashboard
+        </Link>
+        <span className="text-black">{">"}</span>
+        <span className="font-medium text-[#4647AE]">
+          Sertifikasi
+        </span>
+      </div>
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">Sertifikasi</h1>

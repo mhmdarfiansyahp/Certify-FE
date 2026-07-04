@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
@@ -13,27 +13,45 @@ export default function Layout({
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const user = JSON.parse(
-    localStorage.getItem("user") || "null"
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("user") || "null")
   );
 
-  return (
-    <div className="bg-slate-100 min-h-screen">
+  useEffect(() => {
+    const syncUser = () => {
+      setUser(
+        JSON.parse(localStorage.getItem("user") || "null")
+      );
+    };
+    window.addEventListener("storage", syncUser);
+    return () => {
+      window.removeEventListener("storage", syncUser);
+    };
+  }, []);
 
+  return (
+    <div className="h-screen bg-slate-100 overflow-hidden">
+
+      {/* Sidebar */}
       <Sidebar
         user={user}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
       />
 
+      {/* Navbar */}
       <Navbar
         user={user}
         toggleSidebar={() => setIsOpen(!isOpen)}
       />
 
+      {/* Content */}
       <main
         className="
-          pt-20 p-6
+          h-full
+          overflow-y-auto
+          pt-20
+          p-6
           lg:ml-64
         "
       >

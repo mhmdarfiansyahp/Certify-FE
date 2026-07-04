@@ -8,6 +8,8 @@ import SertifikasiPage from "../pages/SertifikasiPage";
 import AsesmenPage from "../pages/AsesmenPage";
 import ProtectedRoute from "./ProtectedRoute";
 import StatusKompetensiPage from "../pages/StatusKompetensiPage";
+import ProfilePage from "../pages/ProfilePage";
+import ChangePasswordPage from "../pages/ChangePasswordPage";
 
 export default function AppRoutes() {
   return (
@@ -22,6 +24,24 @@ export default function AppRoutes() {
           element={
             <Layout>
               <Dashboard />
+            </Layout>
+          }
+        />
+
+        <Route
+          path="/profile"
+          element={
+            <Layout>
+              <ProfilePage />
+            </Layout>
+          }
+        />
+
+        <Route
+          path="/change-password"
+          element={
+            <Layout>
+              <ChangePasswordPage />
             </Layout>
           }
         />

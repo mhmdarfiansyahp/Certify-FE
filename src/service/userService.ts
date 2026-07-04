@@ -20,3 +20,20 @@ export const deleteUser = async (id: number) => {
   const response = await api.delete(`/users/${id}`);
   return response.data;
 };
+
+export const getProfile = async () => {
+  const response = await api.get("/profile");
+
+  return response.data.data;
+};
+
+export const updateProfile = async (
+  payload: Partial<User>
+) => {
+  const response = await api.put(
+    "/profile",
+    payload
+  );
+
+  return response.data;
+};
