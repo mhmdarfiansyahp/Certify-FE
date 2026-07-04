@@ -22,6 +22,7 @@ import {
     toastSuccess,
     toastError,
 } from "../utils/alert";
+import { cn } from "../utils/utils";
 
 export default function ProfilePage() {
     const [loading, setLoading] = useState(true);
@@ -159,7 +160,7 @@ export default function ProfilePage() {
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
 
                 {/* Cover */}
-                <div className="h-32 bg-gradient-to-r from-[#3730A3] to-[#4F46E5]" />
+                <div className="h-32 bg-linear-to-r from-[#3730A3] to-[#4F46E5]" />
 
                 {/* Content */}
                 <div className="relative px-6 pb-6">
@@ -169,11 +170,9 @@ export default function ProfilePage() {
                         <img
                             src="https://i.pravatar.cc/150?img=12"
                             alt="profile"
-                            className="
-                w-24 h-24 rounded-2xl
-                object-cover border-4
-                border-white shadow-md
-              "
+                            className={cn(
+                                "w-24 h-24 rounded-2xl object-cover border-4 border-white shadow-md"
+                            )}
                         />
                     </div>
 

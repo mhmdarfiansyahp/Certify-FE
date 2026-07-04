@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import ChartSection from "../components/dashboard/ChartSection";
 import FilterBar from "../components/dashboard/FilterBar";
+import { getSertifikasi } from "../service/sertifikasiService";
 
 import type {
   DashboardKompetensi,
@@ -31,11 +32,25 @@ export default function Dashboard() {
   const [year, setYear] = useState("");
   const [prodi, setProdi] = useState("");
   const [sertifikasi, setSertifikasi] = useState("");
+  const [sertifikasiList, setSertifikasiList] = useState([]);
   const [summary, setSummary] = useState<DashboardSummary | null>(null);
+
 
   useEffect(() => {
     fetchDashboard();
+    fetchSertifikasi();
   }, []);
+
+  const fetchSertifikasi = async () => {
+    try {
+      const res = await getSertifikasi();
+
+      setSertifikasiList(res.data);
+
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const fetchDashboard = async (
     tahun?: string,
@@ -175,8 +190,9 @@ export default function Dashboard() {
 
         <div className="flex-1">
           <FilterBar
+            sertifikasiList={sertifikasiList}
             onChange={(year, prodi, sertifikasi) => {
-
+              
               setYear(year);
               setProdi(prodi);
               setSertifikasi(sertifikasi);

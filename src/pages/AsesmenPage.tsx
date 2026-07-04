@@ -22,15 +22,16 @@ export default function AsesmenPage() {
   const [loading, setLoading] = useState(true);
 
   const [sertifikasiList, setSertifikasiList] = useState<any[]>([]);
-  const [sertifikasiId, setSertifikasiId] = useState<number>(0);
-
+  const [sertifikasiId, setSertifikasiId] = useState<number | null>(null);
   const [files, setFiles] = useState<FileMap>({});
 
   const fetchData = async () => {
+    if (!sertifikasiId) return;
+
     try {
       setLoading(true);
 
-      const result = await getMahasiswaAsesmen(Number(sertifikasiId));
+      const result = await getMahasiswaAsesmen(sertifikasiId);
 
       setSertifikasi(result.sertifikasi);
       setData(result.data);
@@ -47,9 +48,7 @@ export default function AsesmenPage() {
   }, []);
 
   useEffect(() => {
-    if (sertifikasiId) {
-      fetchData();
-    }
+    fetchData();
   }, [sertifikasiId]);
 
   const fetchSertifikasi = async () => {
@@ -157,7 +156,7 @@ export default function AsesmenPage() {
 
           <select
             className="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none"
-            value={sertifikasiId}
+            value={sertifikasiId ?? ""}
             onChange={(e) =>
               setSertifikasiId(Number(e.target.value))
             }

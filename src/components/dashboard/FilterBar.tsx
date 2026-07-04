@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 
 import { getProdi } from "../../service/prodiService";
-import { getSertifikasi } from "../../service/sertifikasiService";
 
 interface Props {
+  sertifikasiList: any[];
+
   onChange: (
     year: string,
     prodi: string,
@@ -11,14 +12,13 @@ interface Props {
   ) => void;
 }
 
-export default function FilterBar({ onChange }: Props) {
+export default function FilterBar({ onChange, sertifikasiList }: Props) {
 
   const [year, setYear] = useState("");
   const [prodi, setProdi] = useState("");
   const [sertifikasi, setSertifikasi] = useState("");
 
   const [prodiList, setProdiList] = useState<any[]>([]);
-  const [sertifikasiList, setSertifikasiList] = useState<any[]>([]);
 
   useEffect(() => {
     fetchData();
@@ -27,9 +27,7 @@ export default function FilterBar({ onChange }: Props) {
   const fetchData = async () => {
     try {
       const prodiData = await getProdi();
-      const sertifikasiData = await getSertifikasi();
       setProdiList(prodiData);
-      setSertifikasiList(sertifikasiData);
     } catch (error) {
       console.error(error);
     }

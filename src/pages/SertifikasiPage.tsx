@@ -26,7 +26,10 @@ export default function SertifikasiPage() {
     try {
       setLoading(true);
       const res = await getSertifikasi();
-      setData(res);
+      setData(res.data);
+    } catch (err) {
+      console.error(err);
+      toastError("Gagal mengambil data");
     } finally {
       setLoading(false);
     }

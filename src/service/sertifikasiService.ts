@@ -2,6 +2,8 @@ import api from "../api/axios";
 import type { Sertifikasi } from "../types/sertifikasi";
 
 export const getSertifikasi = async () => {
+  console.log("GET SERTIFIKASI DIPANGGIL");
+
   const res = await api.get("/sertifikasi");
   return res.data;
 };
