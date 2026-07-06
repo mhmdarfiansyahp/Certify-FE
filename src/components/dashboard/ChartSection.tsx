@@ -28,9 +28,7 @@ interface Props {
   data: DashboardKompetensi[];
 }
 
-export default function ChartSection({
-  data,
-}: Props) {
+export default function ChartSection({ data }: Props) {
 
   const labels = data.map(
     (d) => d.nama_prodi
@@ -38,7 +36,6 @@ export default function ChartSection({
 
   const chartData = {
     labels,
-
     datasets: [
       {
         label: "Kompeten",
@@ -135,7 +132,7 @@ export default function ChartSection({
         <h2 className={cn(
           "text-xl font-semibold",
           "text-gray-800")}>
-            
+
           Rekap Kompetensi Per Prodi
         </h2>
 

@@ -33,7 +33,14 @@ export default function LoginPage() {
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
-      navigate("/dashboard");
+      if (data.user.role === "mahasiswa") {
+        navigate("/status-kompetensi");
+      } else if (data.user.role === "instruktur") {
+        navigate("/dashboard");
+      } else if (data.user.role === "admin") {
+        navigate("/dashboard");
+      }
+
     } catch (err: any) {
       setError(err.response?.data?.message || "Login gagal");
     } finally {

@@ -61,25 +61,27 @@ export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
 
         {/* MENU */}
         <nav className="flex-1 p-4 flex flex-col gap-2">
-          <NavLink
-            to="/dashboard"
-            className={({
-              isActive,
-            }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition
-              ${isActive
-                ? "text-white shadow-md"
-                : "text-white/80 hover:text-white hover:bg-white/10"
-              }`}
-            style={({ isActive }) =>
-              isActive ? { backgroundColor: "#4382DF" } : {}
-            }
-          >
-            <FaHome />
-            Dashboard
-          </NavLink>
+
 
           {user?.role === "admin" && (
             <>
+              <NavLink
+                to="/dashboard"
+                className={({
+                  isActive,
+                }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition
+              ${isActive
+                    ? "text-white shadow-md"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
+                  }`}
+                style={({ isActive }) =>
+                  isActive ? { backgroundColor: "#4382DF" } : {}
+                }
+              >
+                <FaHome />
+                Dashboard
+              </NavLink>
+
               <NavLink
                 to="/prodi"
                 className={({
@@ -135,6 +137,23 @@ export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
 
           {user?.role === "instruktur" && (
             <>
+              <NavLink
+                to="/dashboard"
+                className={({
+                  isActive,
+                }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition
+              ${isActive
+                    ? "text-white shadow-md"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
+                  }`}
+                style={({ isActive }) =>
+                  isActive ? { backgroundColor: "#4382DF" } : {}
+                }
+              >
+                <FaHome />
+                Dashboard
+              </NavLink>
+              
               <NavLink
                 to="/asesmen"
                 className={({ isActive }) =>

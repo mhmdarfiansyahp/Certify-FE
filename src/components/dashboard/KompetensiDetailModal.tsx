@@ -1,3 +1,5 @@
+import { cn } from "../../utils/utils";
+
 interface Props {
   data: any;
   onClose: () => void;
@@ -10,33 +12,30 @@ export default function DetailModal({
 
   return (
     <div
-      className="
-        fixed inset-0 z-50
-        bg-black/40 backdrop-blur-sm
-        flex items-center justify-center
-        p-4
-      "
-    >
+      className={cn(
+        "fixed inset-0 z-50",
+        "bg-black/40 backdrop-blur-sm",
+        "flex items-center justify-center",
+        "p-4"
+      )}>
 
       <div
-        className="
-          bg-white
-          w-full max-w-lg
-          rounded-3xl
-          shadow-2xl
-          overflow-hidden
-          animate-in fade-in zoom-in
-        "
-      >
+        className={cn(
+          "bg-white",
+          "w-full max-w-lg",
+          "rounded-3xl",
+          "shadow-2xl",
+          "overflow-hidden",
+          "animate-in fade-in zoom-in"
+        )}>
 
         {/* HEADER */}
         <div
-          className="
-            px-6 py-5
-            border-b border-gray-100
-            flex items-center justify-between
-          "
-        >
+          className={cn(
+            "px-6 py-5",
+            "border-b border-gray-100",
+            "flex items-center justify-between"
+          )}>
 
           <div>
             <h2 className="text-xl font-semibold text-gray-800">
@@ -50,12 +49,11 @@ export default function DetailModal({
 
           <button
             onClick={onClose}
-            className="
-              w-9 h-9 rounded-full
-              hover:bg-gray-100
-              transition
-            "
-          >
+            className={cn(
+              "w-9 h-9 rounded-full",
+              "hover:bg-gray-100",
+              "transition"
+            )}>
             ✕
           </button>
 
@@ -68,13 +66,7 @@ export default function DetailModal({
 
             {/* KOMPETEN */}
             <div
-              className="
-                rounded-2xl
-                bg-emerald-50
-                border border-emerald-100
-                p-4
-              "
-            >
+              className={cn("rounded-2xl bg-emerald-50 border border-emerald-100 p-4")}>
               <p className="text-sm text-emerald-700">
                 Kompeten
               </p>
@@ -104,13 +96,7 @@ export default function DetailModal({
 
             {/* TIDAK HADIR */}
             <div
-              className="
-                rounded-2xl
-                bg-amber-50
-                border border-amber-100
-                p-4
-              "
-            >
+              className={cn("rounded-2xl bg-amber-50 border border-amber-100 p-4")}>
               <p className="text-sm text-amber-700">
                 Tidak Hadir
               </p>
@@ -124,13 +110,7 @@ export default function DetailModal({
 
           {/* EXTRA INFO */}
           <div
-            className="
-              rounded-2xl
-              border border-gray-100
-              bg-gray-50
-              p-4
-            "
-          >
+            className={cn("rounded-2xl border border-gray-100 bg-gray-50 p-4")}>
             <p className="text-sm text-gray-500">
               Sertifikasi
             </p>
@@ -162,23 +142,21 @@ export default function DetailModal({
 
         {/* FOOTER */}
         <div
-          className="
-            px-6 py-4
-            border-t border-gray-100
-            flex justify-end
-          "
-        >
+          className={cn(
+            "px-6 py-4",
+            "border-t border-gray-100",
+            "flex justify-end"
+          )}>
 
           <button
             onClick={onClose}
-            className="
-              px-5 py-2.5 rounded-xl
-              bg-[#4647AE]
-              hover:bg-[#3d3ea0]
-              text-white
-              transition
-            "
-          >
+            className={cn(
+              "px-5 py-2.5 rounded-xl",
+              "bg-[#4647AE]",
+              "hover:bg-[#3d3ea0]",
+              "text-white",
+              "transition"
+            )}>
             Tutup
           </button>
 
