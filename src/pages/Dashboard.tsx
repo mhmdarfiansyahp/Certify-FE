@@ -169,7 +169,7 @@ export default function Dashboard() {
       : 0;
 
   return (
-    <div className="p-6 bg-gray-50 space-y-6">
+    <div className="p-6 bg-gray-50 space-y-6 min-h-full flex flex-col">
 
       <div>
         <h1 className="text-3xl font-bold text-gray-800">
@@ -192,7 +192,7 @@ export default function Dashboard() {
           <FilterBar
             sertifikasiList={sertifikasiList}
             onChange={(year, prodi, sertifikasi) => {
-              
+
               setYear(year);
               setProdi(prodi);
               setSertifikasi(sertifikasi);
@@ -243,48 +243,35 @@ export default function Dashboard() {
         "grid grid-cols-1",
         "xl:grid-cols-4",
         "gap-6",
-        "items-stretch")}>
+        "items-stretch flex-1")}>
 
         {/* LEFT SIDE */}
         <div className={cn(
           "xl:col-span-1",
           "space-y-5",
-          "gap-5")}>
+          "gap-5 flex flex-col")}>
 
           {/* TOTAL MAHASISWA */}
           <div className={cn(
             "bg-white rounded-3xl",
             "border border-gray-100",
             "p-6 shadow-sm",
-            "flex-1")}>
+            "flex-1 flex flex-col justify-between")}>
 
-            <div className={cn(
-              "flex items-start",
-              "justify-between")}>
-
-              <div>
-                <p className="text-gray-500 text-sm">
-                  Total Mahasiswa
-                </p>
-
-                <h2 className={cn(
-                  "text-5xl font-bold",
-                  "text-indigo-700 mt-5")}>
-                  {totalMahasiswa}
-                </h2>
-
-              </div>
-
-              <div className={cn(
-                "w-14 h-14 rounded-2xl",
-                "bg-indigo-100",
-                "flex items-center justify-center")}>
-
-                <FaUsers className="text-indigo-700 text-2xl" />
+            <div className="flex items-center justify-between">
+              <p className="text-gray-500 text-sm font-medium">Total Mahasiswa</p>
+              <div className="w-10 h-10 rounded-xl bg-indigo-100 flex items-center justify-center">
+                <FaUsers className="text-indigo-700 text-xl" />
               </div>
             </div>
 
-            <p className="text-sm text-emerald-600 mt-6">
+            <div className="flex-1 flex items-center justify-start my-4">
+              <h2 className="text-6xl font-extrabold text-indigo-700">
+                {totalMahasiswa}
+              </h2>
+            </div>
+
+            <p className="text-sm text-emerald-600">
               ↗ +12% dari semester lalu
             </p>
           </div>
@@ -294,7 +281,7 @@ export default function Dashboard() {
             "bg-white rounded-3xl",
             "border border-gray-100",
             "p-6 shadow-sm",
-            "flex-1")}>
+            "flex-1 flex flex-col justify-between")}>
 
             <div className={cn(
               "flex items-start",
@@ -348,7 +335,7 @@ export default function Dashboard() {
             "bg-white rounded-3xl",
             "border border-gray-100",
             "p-6 shadow-sm",
-            "flex-1")}>
+            "flex-1 flex flex-col justify-between")}>
 
             <div className={cn(
               "flex items-start",
@@ -386,7 +373,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="xl:col-span-3">
+        <div className="xl:col-span-3 flex flex-col">
           <ChartSection data={data} />
         </div>
       </div>

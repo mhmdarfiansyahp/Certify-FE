@@ -125,7 +125,7 @@ export default function ChartSection({ data }: Props) {
   return (
     <div
       className={cn(
-        "bg-white rounded-3xl border border-gray-100 shadow-sm p-6"
+        "bg-white rounded-3xl border border-gray-100 shadow-sm p-6 h-full flex flex-col"
       )}>
       <div className="mb-8">
 
@@ -145,7 +145,7 @@ export default function ChartSection({ data }: Props) {
 
       </div>
 
-      <div className="h-112">
+      <div className="flex-1 w-full min-h-100">
         <Bar
           data={chartData}
           options={options}
