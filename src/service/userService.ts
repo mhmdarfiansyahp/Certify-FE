@@ -1,4 +1,5 @@
 import api from "../api/axios";
+import type { ChangePasswordPayload } from "../types/password";
 import type { User } from "../types/user";
 
 export const getUser = async () => {
@@ -35,5 +36,10 @@ export const updateProfile = async (
     payload
   );
 
+  return response.data;
+};
+
+export const changePassword = async (payload: ChangePasswordPayload) => {
+  const response = await api.put("/profile/password", payload);
   return response.data;
 };

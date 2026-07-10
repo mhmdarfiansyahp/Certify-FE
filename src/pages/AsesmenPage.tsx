@@ -54,12 +54,9 @@ export default function AsesmenPage() {
   const fetchSertifikasi = async () => {
     try {
       const result = await getSertifikasiProdi();
-
       setSertifikasiList(result.data);
+      setSertifikasiId(null);
 
-      if (result.data.length > 0) {
-        setSertifikasiId(result.data[0].id);
-      }
     } catch (error) {
       console.error(error);
     }
@@ -122,7 +119,6 @@ export default function AsesmenPage() {
       });
 
       await saveBulkAsesmen(formData);
-
       await fetchData();
 
       toastSuccess("Asesmen berhasil disimpan");
@@ -157,10 +153,12 @@ export default function AsesmenPage() {
           <select
             className="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none"
             value={sertifikasiId ?? ""}
-            onChange={(e) =>
-              setSertifikasiId(Number(e.target.value))
-            }
+            onChange={(e) => {
+              const val = e.target.value;
+              setSertifikasiId(val === "" ? null : Number(val));
+            }}
           >
+            <option value="" disabled>Pilih Sertifikasi</option>
             {sertifikasiList.map((item) => (
               <option key={item.id} value={item.id}>
                 {item.nama_sertifikasi}
@@ -174,22 +172,16 @@ export default function AsesmenPage() {
       <div className="bg-white rounded-2xl shadow border border-gray-100 p-5">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div>
-            <p className="text-sm text-gray-500">
-              Sertifikasi
-            </p>
-
+            <p className="text-sm text-gray-500">Sertifikasi</p>
             <h2 className="text-xl font-bold text-gray-800">
-              {sertifikasi?.nama_sertifikasi}
+              {sertifikasi ? sertifikasi.nama_sertifikasi : "-"}
             </h2>
           </div>
 
           <div>
-            <p className="text-sm text-gray-500">
-              Lembaga
-            </p>
-
+            <p className="text-sm text-gray-500">Lembaga</p>
             <h2 className="text-lg font-semibold text-gray-700">
-              {sertifikasi?.lembaga}
+              {sertifikasi ? sertifikasi.lembaga : "-"}
             </h2>
           </div>
         </div>

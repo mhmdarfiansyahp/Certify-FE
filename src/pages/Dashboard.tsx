@@ -281,93 +281,85 @@ export default function Dashboard() {
             "bg-white rounded-3xl",
             "border border-gray-100",
             "p-6 shadow-sm",
-            "flex-1 flex flex-col justify-between")}>
+            "flex-1 flex flex-col justify-between" // Tetap pertahankan ini
+          )}>
 
-            <div className={cn(
-              "flex items-start",
-              "justify-between")}>
-
-              <div>
-                <p className="text-gray-500 text-sm">
-                  Tingkat Kompetensi
-                </p>
-
-                <h2 className={cn(
-                  "text-5xl font-bold",
-                  "text-emerald-700 mt-5")}>
-                  {tingkatKompetensi}%
-                </h2>
-
-              </div>
-
+            {/* Bagian Atas: Judul dan Icon Sejajar */}
+            <div className="flex items-center justify-between">
+              <p className="text-gray-500 text-sm font-medium">
+                Tingkat Kompetensi
+              </p>
               <div className={cn(
-                "w-14 h-14 rounded-2xl",
+                "w-10 h-10 rounded-xl", // Dikecilkan sedikit agar serasi
                 "bg-emerald-100",
-                "flex items-center justify-center")}>
-                <FaCheckCircle className={cn(
-                  "text-emerald-700 text-2xl")} />
+                "flex items-center justify-center"
+              )}>
+                <FaCheckCircle className="text-emerald-700 text-xl" />
               </div>
-
             </div>
 
-            {/* PROGRESS BAR */}
-            <div className={cn(
-              "w-full h-3 rounded-full",
-              "bg-gray-100 mt-8",
-              "overflow-hidden")}>
+            {/* Bagian Tengah: Angka Besar yang Mengisi Ruang Kosong */}
+            <div className="flex-1 flex items-center justify-start my-4">
+              <h2 className="text-6xl font-extrabold text-emerald-700">
+                {tingkatKompetensi}%
+              </h2>
+            </div>
 
-              <div
-                className={cn(
-                  "h-full rounded-full",
-                  "bg-emerald-600"
-                )}
-                style={{
-                  width: `${tingkatKompetensi}%`
-                }}
-              />
-
+            {/* Bagian Bawah: PROGRESS BAR */}
+            <div className="w-full">
+              <div className={cn(
+                "w-full h-3 rounded-full",
+                "bg-gray-100",
+                "overflow-hidden"
+              )}>
+                <div
+                  className={cn(
+                    "h-full rounded-full",
+                    "bg-emerald-600"
+                  )}
+                  style={{
+                    width: `${tingkatKompetensi}%`
+                  }}
+                />
+              </div>
             </div>
 
           </div>
 
-          {/* MENUNGGU UJIAN */}
+          {/* BELUM DINILAI */}
           <div className={cn(
             "bg-white rounded-3xl",
             "border border-gray-100",
             "p-6 shadow-sm",
-            "flex-1 flex flex-col justify-between")}>
+            "flex-1 flex flex-col justify-between"
+          )}>
 
-            <div className={cn(
-              "flex items-start",
-              "justify-between")}>
-
-              <div>
-
-                <p className="text-gray-500 text-sm">
-                  Belum Dinilai
-                </p>
-
-                <h2 className={cn(
-                  "text-5xl font-bold",
-                  "text-amber-700 mt-5")}>
-                  {totalBelumDinilai}
-                </h2>
-
-              </div>
-
+            {/* Bagian Atas: Judul dan Icon Sejajar */}
+            <div className="flex items-center justify-between">
+              <p className="text-gray-500 text-sm font-medium">
+                Belum Dinilai
+              </p>
               <div className={cn(
-                "w-14 h-14 rounded-2xl",
+                "w-10 h-10 rounded-xl",
                 "bg-amber-100",
-                "flex items-center justify-center")}>
-
-                <FaClipboard className={cn(
-                  "text-amber-700 text-2xl")} />
+                "flex items-center justify-center"
+              )}>
+                <FaClipboard className="text-amber-700 text-xl" />
               </div>
-
             </div>
 
-            <p className={cn(
-              "text-sm text-gray-500 mt-6")}>
+            {/* Bagian Tengah: Angka Utama Menghabiskan Ruang Kosong */}
+            <div className="flex-1 flex items-center justify-start my-4">
+              <h2 className={cn(
+                "text-6xl font-extrabold",
+                "text-amber-700"
+              )}>
+                {totalBelumDinilai}
+              </h2>
+            </div>
+
+            {/* Bagian Bawah: Teks Pelengkap */}
+            <p className="text-sm text-gray-500">
               Daftar prodi aktif
             </p>
           </div>

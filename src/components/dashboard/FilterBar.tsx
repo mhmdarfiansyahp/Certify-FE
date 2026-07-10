@@ -60,7 +60,7 @@ export default function FilterBar({ onChange, sertifikasiList }: Props) {
             setYear(value);
             handleChange(value, prodi, sertifikasi);
           }}
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none">
+          className="w-full px-4 py-3 rounded-xl border border-gray-500 focus:outline-none">
 
           <option value="">Semua Tahun</option>
           {years.map((item) => (
@@ -83,7 +83,7 @@ export default function FilterBar({ onChange, sertifikasiList }: Props) {
             setProdi(value);
             handleChange(year, value, sertifikasi);
           }}
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none">
+          className="w-full px-4 py-3 rounded-xl border border-gray-500 focus:outline-none">
           <option value="">Semua Prodi</option>
 
           {prodiList.map((item) => (
@@ -107,7 +107,7 @@ export default function FilterBar({ onChange, sertifikasiList }: Props) {
             setSertifikasi(value);
             handleChange(year, prodi, value);
           }}
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none">
+          className="w-full px-4 py-3 rounded-xl border border-gray-500 focus:outline-none">
           <option value="">Semua Sertifikasi</option>
 
           {sertifikasiList.map((item) => (
