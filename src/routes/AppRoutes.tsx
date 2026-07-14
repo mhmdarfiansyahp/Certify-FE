@@ -16,33 +16,38 @@ export default function AppRoutes() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
-
         <Route path="/login" element={<LoginPage />} />
 
         <Route
           path="/dashboard"
           element={
-            <Layout>
-              <Dashboard />
-            </Layout>
+            <ProtectedRoute allowedRoles={["admin", "instruktur"]}>
+              <Layout>
+                <Dashboard />
+              </Layout>
+            </ProtectedRoute>
           }
         />
 
         <Route
           path="/profile"
           element={
-            <Layout>
-              <ProfilePage />
-            </Layout>
+            <ProtectedRoute allowedRoles={["admin", "instruktur", "mahasiswa"]}>
+              <Layout>
+                <ProfilePage />
+              </Layout>
+            </ProtectedRoute>
           }
         />
 
         <Route
           path="/change-password"
           element={
-            <Layout>
-              <ChangePasswordPage />
-            </Layout>
+            <ProtectedRoute allowedRoles={["admin", "instruktur", "mahasiswa"]}>
+              <Layout>
+                <ChangePasswordPage />
+              </Layout>
+            </ProtectedRoute>
           }
         />
 

@@ -110,11 +110,13 @@ export default function FilterBar({ onChange, sertifikasiList }: Props) {
           className="w-full px-4 py-3 rounded-xl border border-gray-500 focus:outline-none">
           <option value="">Semua Sertifikasi</option>
 
-          {sertifikasiList.map((item) => (
-            <option key={item.id} value={item.id}>
-              {item.nama_sertifikasi}
-            </option>
-          ))}
+          {sertifikasiList
+            .filter((item) => item.status === true)
+            .map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.nama_sertifikasi}
+              </option>
+            ))}
         </select>
       </div>
     </div>

@@ -89,18 +89,14 @@ export default function Dashboard() {
       const link = document.createElement("a");
 
       link.href = url;
-
       link.setAttribute(
         "download",
         `laporan-kompetensi-${Date.now()}.xlsx`
       );
 
       document.body.appendChild(link);
-
       link.click();
-
       link.remove();
-
     } catch (error) {
       console.error(error);
     }
@@ -170,7 +166,6 @@ export default function Dashboard() {
 
   return (
     <div className="p-6 bg-gray-50 space-y-6 min-h-full flex flex-col">
-
       <div>
         <h1 className="text-3xl font-bold text-gray-800">
           Rekap Kompetensi Mahasiswa
@@ -281,7 +276,7 @@ export default function Dashboard() {
             "bg-white rounded-3xl",
             "border border-gray-100",
             "p-6 shadow-sm",
-            "flex-1 flex flex-col justify-between" // Tetap pertahankan ini
+            "flex-1 flex flex-col justify-between"
           )}>
 
             {/* Bagian Atas: Judul dan Icon Sejajar */}

@@ -10,6 +10,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import type { User } from "../../types/user";
 import { cn } from "../../utils/utils";
+import { logout } from "../../service/authService";
 
 interface NavbarProps {
   user?: User | null;
@@ -20,13 +21,19 @@ export default function Navbar({ user, toggleSidebar }: NavbarProps) {
   const [openDropdown, setOpenDropdown] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (err) {
+      console.error("Gagal logout di server, membersihkan storage lokal...", err);
+    } finally {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
 
-    navigate("/login");
+      navigate("/login", { replace: true });
+      setOpenDropdown(false);
+    }
   };
-
   const handleProfile = () => {
     navigate("/profile");
     setOpenDropdown(false);

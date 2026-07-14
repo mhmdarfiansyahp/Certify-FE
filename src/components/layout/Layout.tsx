@@ -23,12 +23,15 @@ export default function Layout({
         JSON.parse(localStorage.getItem("user") || "null")
       );
     };
+
     window.addEventListener("storage", syncUser);
+    window.addEventListener("userProfileUpdated", syncUser);
+
     return () => {
       window.removeEventListener("storage", syncUser);
+      window.removeEventListener("userProfileUpdated", syncUser);
     };
   }, []);
-
   return (
     <div className="h-screen bg-slate-100 overflow-hidden">
 

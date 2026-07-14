@@ -61,8 +61,6 @@ export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
 
         {/* MENU */}
         <nav className="flex-1 p-4 flex flex-col gap-2">
-
-
           {user?.role === "admin" && (
             <>
               <NavLink

@@ -10,13 +10,3 @@ export interface MahasiswaAsesmen {
     status: StatusAsesmen | "";
     bukti_pendukung?: string | null;
 }
-
-export interface BulkAsesmenPayload {
-    sertifikasi_id: number;
-    tanggal_asesmen: string;
-    asesmens: {
-        user_id: number;
-        status_kompetensi: StatusAsesmen | "";
-        catatan?: string | null;
-    }[];
-}

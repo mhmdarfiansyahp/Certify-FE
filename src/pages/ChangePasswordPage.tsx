@@ -251,7 +251,6 @@ export default function ChangePasswordPage() {
                                 </button>
                             </div>
                         </div>
-
                     </form>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getSertifikasiProdi } from "../service/sertifikasiService";
+import { FiClipboard } from "react-icons/fi";
 
 import {
   getMahasiswaAsesmen,
@@ -11,6 +12,7 @@ import type { StatusAsesmen, MahasiswaAsesmen } from "../types/asesmen";
 import { toastSuccess, toastError } from "../utils/alert";
 import TableSkeleton from "../components/ui/TableSkeleton";
 import AsesmenTable from "../components/asesmen/AsesmenTable";
+import { cn } from "../utils/utils";
 
 type FileMap = {
   [key: number]: File | null;
@@ -62,7 +64,6 @@ export default function AsesmenPage() {
     }
   };
 
-  // CHANGE STATUS
   const handleChangeStatus = (id: number, value: StatusAsesmen) => {
     setData((prev) =>
       prev.map((mhs) =>
@@ -71,7 +72,6 @@ export default function AsesmenPage() {
     );
   };
 
-  // UPLOAD FILE
   const handleUpload = (id: number, file?: File) => {
     if (!file) return;
 
@@ -97,7 +97,6 @@ export default function AsesmenPage() {
     }));
   };
 
-  // SAVE
   const handleSave = async () => {
     try {
       for (const mhs of data) {
@@ -187,7 +186,6 @@ export default function AsesmenPage() {
         </div>
       </div>
 
-      {/* TABLE */}
       <div className="bg-white rounded-2xl shadow border border-gray-100 overflow-hidden">
         {/* HEADER */}
         <div className="p-5 border-b border-gray-100 flex items-center justify-between">
@@ -197,20 +195,35 @@ export default function AsesmenPage() {
             </h2>
 
             <p className="text-sm text-gray-500">
-              Total {data.length} mahasiswa
+              Total {sertifikasiId ? data.length : 0} mahasiswa
             </p>
           </div>
 
           <button
             onClick={handleSave}
-            className="px-5 py-2.5 rounded-xl bg-[#4647AE] text-white hover:bg-[#3d3ea0]"
-          >
+            disabled={!sertifikasiId || loading}
+            className={cn("px-5 py-2.5", "rounded-xl bg-[#4647AE] text-white hover:bg-[#3d3ea0] disabled:bg-gray-300 disabled:cursor-not-allowed transition")}>
             Simpan Asesmen
           </button>
         </div>
 
-        {loading ? (
+        {loading && sertifikasiId ? (
           <TableSkeleton />
+        ) : !sertifikasiId ? (
+          <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
+            <div className="w-16 h-16 bg-indigo-50 text-[#4647AE] rounded-full flex items-center justify-center mb-4">
+              {/* Menggunakan FiClipboard dari react-icons/fi */}
+              <FiClipboard size={28} />
+            </div>
+            <h3 className="text-base font-semibold text-gray-700">Sertifikasi Belum Dipilih</h3>
+            <p className="text-sm text-gray-400 max-w-sm mt-1">
+              Silakan pilih salah satu paket sertifikasi pada dropdown di atas untuk memuat daftar peserta mahasiswa.
+            </p>
+          </div>
+        ) : data.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-16 text-center text-gray-500">
+            <p className="text-sm">Tidak ada mahasiswa yang terdaftar pada sertifikasi ini.</p>
+          </div>
         ) : (
           <AsesmenTable
             data={data}
