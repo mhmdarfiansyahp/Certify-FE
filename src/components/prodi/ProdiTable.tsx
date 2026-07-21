@@ -35,7 +35,7 @@ export default function ProdiTable({
       cell: ({ row }) => <span className="text-gray-500">{row.index + 1}</span>,
     },
     {
-      header: "Nama Prodi",
+      header: "Study Program Name",
       accessorKey: "nama_prodi",
     },
     {
@@ -49,12 +49,12 @@ export default function ProdiTable({
               : "bg-red-100 text-red-700"
           )}
         >
-          {row.original.status ? "Aktif" : "Nonaktif"}
+          {row.original.status ? "Active" : "Inactive"}
         </span>
       ),
     },
     {
-      header: "Aksi",
+      header: "Action",
       cell: ({ row }) => (
         <div className="flex gap-2">
           <button
@@ -107,7 +107,7 @@ export default function ProdiTable({
           <input
             value={globalFilter}
             onChange={(e) => setGlobalFilter(e.target.value)}
-            placeholder="Cari Program Studi..."
+            placeholder="Search Study Program..."
             className={cn(
               "w-full pl-10 pr-4 py-2.5 border border-gray-200",
               "rounded-xl text-sm focus:outline-none"
@@ -159,7 +159,7 @@ export default function ProdiTable({
                   colSpan={columns.length}
                   className="text-center py-10 text-gray-400"
                 >
-                  Data tidak ditemukan
+                  No data found
                 </td>
               </tr>
             )}
@@ -167,7 +167,6 @@ export default function ProdiTable({
         </table>
       </div>
 
-      {/* PAGINATION */}
       <div className="px-5 py-4 border-t border-gray-100 flex items-center justify-between">
         <p className="text-sm text-gray-500">
           Total: {table.getFilteredRowModel().rows.length}

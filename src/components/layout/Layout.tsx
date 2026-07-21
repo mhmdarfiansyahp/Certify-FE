@@ -35,20 +35,17 @@ export default function Layout({
   return (
     <div className="h-screen bg-slate-100 overflow-hidden">
 
-      {/* Sidebar */}
       <Sidebar
         user={user}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
       />
 
-      {/* Navbar */}
       <Navbar
         user={user}
         toggleSidebar={() => setIsOpen(!isOpen)}
       />
 
-      {/* Content */}
       <main
         className="
           h-full

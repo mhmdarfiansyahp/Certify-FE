@@ -29,7 +29,7 @@ export default function ProfilePage() {
     const [isEdit, setIsEdit] = useState(false);
     const [saving, setSaving] = useState(false);
     const [form, setForm] = useState({
-        name: "", // Kosongkan default-nya agar tidak flicker data admin lama
+        name: "",
         username: "",
         email: "",
         role: "",
@@ -59,7 +59,7 @@ export default function ProfilePage() {
                 status: res.status ?? true,
             });
         } catch (err) {
-            toastError("Gagal mengambil profile");
+            toastError("Failed to fetch profile");
         } finally {
             setLoading(false);
         }
@@ -81,12 +81,10 @@ export default function ProfilePage() {
                 email: form.email,
             });
 
-            // Ambil user lama dari localStorage
             const oldUser = JSON.parse(
                 localStorage.getItem("user") || "{}"
             );
 
-            // Update user baru untuk localStorage
             const updatedUser = {
                 ...oldUser,
                 name: res.data?.name || form.name,
@@ -95,20 +93,18 @@ export default function ProfilePage() {
 
             localStorage.setItem("user", JSON.stringify(updatedUser));
 
-            // 🌟 DI SINI: Kirim sinyal custom event agar Sidebar mendeteksi perubahan
             window.dispatchEvent(new Event("userProfileUpdated"));
 
-            // Cukup update state lokal
             setForm((prev) => ({
                 ...prev,
                 name: res.data?.name || prev.name,
                 email: res.data?.email || prev.email,
             }));
 
-            toastSuccess("Profile berhasil diperbarui");
+            toastSuccess("Profile updated successfully");
             setIsEdit(false);
         } catch (err) {
-            toastError("Gagal memperbarui profile");
+            toastError("Failed to update profile");
         } finally {
             setSaving(false);
         }
@@ -117,14 +113,13 @@ export default function ProfilePage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-100">
-                <p className="text-gray-500 animate-pulse">Memuat data profil...</p>
+                <p className="text-gray-500 animate-pulse">Loading profile data...</p>
             </div>
         );
     }
 
     return (
         <div className="space-y-6">
-            {/* Breadcrumb */}
             <div className="flex items-center gap-2 text-sm">
                 <Link to="/dashboard" className="hover:text-[#4647AE] transition">
                     Dashboard
@@ -133,13 +128,11 @@ export default function ProfilePage() {
                 <span className="font-medium text-[#4647AE]">Profile</span>
             </div>
 
-            {/* Header */}
             <div>
                 <h1 className="text-2xl font-bold text-gray-800">Profile</h1>
-                <p className="text-sm text-gray-500">Informasi akun pengguna</p>
+                <p className="text-sm text-gray-500">User account information</p>
             </div>
 
-            {/* Profile Header */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div className="h-32 bg-linear-to-r from-[#3730A3] to-[#4F46E5]" />
                 <div className="relative px-6 pb-6">
@@ -183,7 +176,7 @@ export default function ProfilePage() {
                                         disabled={saving}
                                         className="px-4 py-2 rounded-xl border border-gray-300 hover:bg-gray-100 text-sm font-medium transition"
                                     >
-                                        Batal
+                                        Cancel
                                     </button>
 
                                     <button
@@ -192,7 +185,7 @@ export default function ProfilePage() {
                                         className="px-4 py-2 rounded-xl bg-[#4647AE] hover:bg-[#3d3ea0] disabled:opacity-50 text-white transition flex items-center gap-2 text-sm font-medium"
                                     >
                                         <FaSave />
-                                        {saving ? "Menyimpan..." : "Simpan"}
+                                        {saving ? "Saving..." : "Save"}
                                     </button>
                                 </>
                             )}
@@ -203,16 +196,15 @@ export default function ProfilePage() {
 
             {/* Information */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Informasi Pribadi */}
                 <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                     <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-xl font-bold text-gray-900">Informasi Pribadi</h2>
+                        <h2 className="text-xl font-bold text-gray-900">Personal Information</h2>
                         <FaUser className="text-[#4647AE]" size={20} />
                     </div>
 
                     <div className="space-y-5">
                         <div className="border-b border-gray-100 pb-4">
-                            <p className="text-xs uppercase text-gray-400 font-semibold mb-2">Nama</p>
+                            <p className="text-xs uppercase text-gray-400 font-semibold mb-2">FULL NAME</p>
                             {isEdit ? (
                                 <input
                                     type="text"
@@ -251,24 +243,23 @@ export default function ProfilePage() {
 
                         {form.role === "mahasiswa" && (
                             <div className="border-b border-gray-100 pb-4">
-                                <p className="text-xs uppercase text-gray-400 font-semibold mb-2">NIM</p>
+                                <p className="text-xs uppercase text-gray-400 font-semibold mb-2">Student ID (NIM)</p>
                                 <p className="text-base text-gray-800">{form.nim || "-"}</p>
                             </div>
                         )}
 
                         {(form.role === "admin" || form.role === "instruktur") && (
                             <div>
-                                <p className="text-xs uppercase text-gray-400 font-semibold mb-2">NIP</p>
+                                <p className="text-xs uppercase text-gray-400 font-semibold mb-2">Employee ID (NIP)</p>
                                 <p className="text-base text-gray-800">{form.nip || "-"}</p>
                             </div>
                         )}
                     </div>
                 </div>
 
-                {/* Detail Profesional */}
                 <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                     <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-xl font-bold text-gray-900">Detail Profesional</h2>
+                        <h2 className="text-xl font-bold text-gray-900">Professional Details</h2>
                         <MdWorkOutline className="text-[#4647AE]" size={22} />
                     </div>
 
@@ -279,7 +270,7 @@ export default function ProfilePage() {
                         </div>
 
                         <div className="border-b border-gray-100 pb-4">
-                            <p className="text-xs uppercase text-gray-400 font-semibold mb-2">Program Studi</p>
+                            <p className="text-xs uppercase text-gray-400 font-semibold mb-2">Study Program</p>
                             <p className="text-base text-gray-800">{form.prodi || "-"}</p>
                         </div>
 
@@ -293,7 +284,7 @@ export default function ProfilePage() {
                                     "w-2 h-2 rounded-full",
                                     form.status ? "bg-green-600" : "bg-red-600"
                                 )} />
-                                {form.status ? "AKTIF" : "NONAKTIF"}
+                                {form.status ? "ACTIVE" : "INACTIVE"}
                             </span>
                         </div>
                     </div>

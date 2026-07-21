@@ -23,24 +23,24 @@ export default function ProdiModal({ prodi, onClose, onSave }: any) {
   };
 
   return (
-    <div className=" fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
       <div className="bg-white rounded-lg w-full max-w-lg shadow-lg">
         <div className="p-5 border-b">
           <h2 className="text-lg font-semibold text-gray-800">
-            {isEdit ? "Edit Program Studi" : "Tambah Program Studi"}
+            {isEdit ? "Edit Study Program" : "Add Study Program"}
           </h2>
         </div>
 
         <div className="p-5 space-y-4">
           <div>
             <label className="text-sm text-black">
-              Nama Program Studi
+              Study Program Name
               {!isEdit && <span className="text-red-500 ml-1">*</span>}{" "}
             </label>
 
             <input
               className="w-full mt-1 p-2 border rounded-lg focus:outline-none"
-              placeholder="Informatika"
+              placeholder="Informatics"
               value={form.nama_prodi}
               onChange={(e) => {
                 setForm({ ...form, nama_prodi: e.target.value });
@@ -67,8 +67,8 @@ export default function ProdiModal({ prodi, onClose, onSave }: any) {
                   })
                 }
               >
-                <option value="1">Aktif</option>
-                <option value="0">Nonaktif</option>
+                <option value="1">Active</option>
+                <option value="0">Inactive</option>
               </select>
             </div>
           )}
@@ -79,14 +79,14 @@ export default function ProdiModal({ prodi, onClose, onSave }: any) {
             onClick={onClose}
             className="px-4 py-2 border rounded-lg hover:bg-gray-50"
           >
-            Batal
+            Cancel
           </button>
 
           <button
             onClick={handleSubmit}
             className="px-4 py-2 bg-[#4647AE] text-white rounded-lg hover:bg-[#3d3ea0]"
           >
-            Simpan
+            Save
           </button>
         </div>
       </div>

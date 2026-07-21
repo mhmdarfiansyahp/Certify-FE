@@ -2,23 +2,23 @@ export const validateSertifikasi = (data: any) => {
   const errors: any = {};
 
   if (!data.prodi_id) {
-    errors.prodi_id = "Program studi wajib dipilih";
+    errors.prodi_id = "Study program is required";
   }
 
   if (!data.nama_sertifikasi) {
-    errors.nama_sertifikasi = "Nama sertifikasi wajib diisi";
+    errors.nama_sertifikasi = "Certification name is required";
   }
 
   if (!data.lembaga) {
-    errors.lembaga = "Lembaga wajib diisi";
+    errors.lembaga = "Institution is required";
   }
 
   if (!data.level) {
-    errors.level = "Level wajib dipilih";
+    errors.level = "Level is required";
   }
 
   if (!data.tanggal_sertifikasi) {
-    errors.tanggal_sertifikasi = "Tanggal wajib diisi";
+    errors.tanggal_sertifikasi = "Date is required";
   }
 
   return errors;

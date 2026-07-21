@@ -48,9 +48,10 @@ export default function FilterBar({ onChange, sertifikasiList }: Props) {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {/* YEAR */}
       <div>
         <label className="block text-sm font-medium text-gray-600 mb-2">
-          Tahun
+          Year
         </label>
 
         <select
@@ -60,9 +61,9 @@ export default function FilterBar({ onChange, sertifikasiList }: Props) {
             setYear(value);
             handleChange(value, prodi, sertifikasi);
           }}
-          className="w-full px-4 py-3 rounded-xl border border-gray-500 focus:outline-none">
-
-          <option value="">Semua Tahun</option>
+          className="w-full px-4 py-3 rounded-xl border border-gray-500 focus:outline-none"
+        >
+          <option value="">All Years</option>
           {years.map((item) => (
             <option key={item} value={item}>
               {item}
@@ -71,10 +72,10 @@ export default function FilterBar({ onChange, sertifikasiList }: Props) {
         </select>
       </div>
 
-      {/* PRODI */}
+      {/* STUDY PROGRAM */}
       <div>
         <label className="block text-sm font-medium text-gray-600 mb-2">
-          Program Studi
+          Study Program
         </label>
         <select
           value={prodi}
@@ -83,8 +84,9 @@ export default function FilterBar({ onChange, sertifikasiList }: Props) {
             setProdi(value);
             handleChange(year, value, sertifikasi);
           }}
-          className="w-full px-4 py-3 rounded-xl border border-gray-500 focus:outline-none">
-          <option value="">Semua Prodi</option>
+          className="w-full px-4 py-3 rounded-xl border border-gray-500 focus:outline-none"
+        >
+          <option value="">All Study Programs</option>
 
           {prodiList.map((item) => (
             <option key={item.id} value={item.id}>
@@ -94,10 +96,10 @@ export default function FilterBar({ onChange, sertifikasiList }: Props) {
         </select>
       </div>
 
-      {/* SERTIFIKASI */}
+      {/* CERTIFICATION */}
       <div>
         <label className="block text-sm font-medium text-gray-600 mb-2">
-          Sertifikasi
+          Certification
         </label>
 
         <select
@@ -107,8 +109,9 @@ export default function FilterBar({ onChange, sertifikasiList }: Props) {
             setSertifikasi(value);
             handleChange(year, prodi, value);
           }}
-          className="w-full px-4 py-3 rounded-xl border border-gray-500 focus:outline-none">
-          <option value="">Semua Sertifikasi</option>
+          className="w-full px-4 py-3 rounded-xl border border-gray-500 focus:outline-none"
+        >
+          <option value="">All Certifications</option>
 
           {sertifikasiList
             .filter((item) => item.status === true)

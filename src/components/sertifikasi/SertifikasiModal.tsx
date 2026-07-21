@@ -56,14 +56,14 @@ export default function SertifikasiModal({
       <div className="bg-white rounded-lg w-full max-w-lg shadow-lg">
         <div className="p-5 border-b">
           <h2 className="text-lg font-semibold text-gray-800">
-            {isEdit ? "Edit Sertifikasi" : "Tambah Sertifikasi"}
+            {isEdit ? "Edit Certification" : "Add Certification"}
           </h2>
         </div>
 
         <div className="p-5 space-y-4">
           <div>
             <label className="text-sm text-gray-600">
-              Program Studi
+              Study Program
               {!isEdit && <span className="text-red-500 ml-1">*</span>}{" "}
             </label>
 
@@ -75,7 +75,7 @@ export default function SertifikasiModal({
                 clearField(setErrors, "prodi_id");
               }}
             >
-              <option value="" disabled>Pilih Prodi</option>
+              <option value="" disabled>Select Study Program</option>
               {prodiList
                 .filter((p) => p.status === true)
                 .map((p) => (
@@ -92,7 +92,7 @@ export default function SertifikasiModal({
 
           <div>
             <label className="text-sm text-gray-600">
-              Nama Sertifikasi
+              Certification Name
               {!isEdit && <span className="text-red-500 ml-1">*</span>}{" "}
             </label>
 
@@ -114,7 +114,7 @@ export default function SertifikasiModal({
 
           <div>
             <label className="text-sm text-gray-600">
-              Lembaga
+              Institution / Organization
               {!isEdit && <span className="text-red-500 ml-1">*</span>}
             </label>
 
@@ -146,9 +146,9 @@ export default function SertifikasiModal({
                 clearField(setErrors, "level");
               }}
             >
-              <option value="" disabled>Pilih Level</option>
-              <option value="Nasional">Nasional</option>
-              <option value="Internasional">Internasional</option>
+              <option value="" disabled>Select Level</option>
+              <option value="National">National</option>
+              <option value="International">International</option>
             </select>
 
             {errors.level && (
@@ -158,7 +158,7 @@ export default function SertifikasiModal({
 
           <div>
             <label className="text-sm text-gray-600">
-              Tanggal Sertifikasi
+              Certification Date
               {!isEdit && <span className="text-red-500 ml-1">*</span>}
             </label>
 
@@ -196,8 +196,8 @@ export default function SertifikasiModal({
                   })
                 }
               >
-                <option value="1">Aktif</option>
-                <option value="0">Nonaktif</option>
+                <option value="1">Active</option>
+                <option value="0">Inactive</option>
               </select>
             </div>
           )}
@@ -208,14 +208,14 @@ export default function SertifikasiModal({
             onClick={onClose}
             className="px-4 py-2 border rounded-lg hover:bg-gray-50"
           >
-            Batal
+            Cancel
           </button>
 
           <button
             onClick={handleSubmit}
             className="px-4 py-2 bg-[#4647AE] text-white rounded-lg hover:bg-[#3d3ea0]"
           >
-            Simpan
+            Save
           </button>
         </div>
       </div>

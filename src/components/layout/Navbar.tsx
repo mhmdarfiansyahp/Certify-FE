@@ -53,7 +53,6 @@ export default function Navbar({ user, toggleSidebar }: NavbarProps) {
         "shadow-sm flex items-center justify-between",
         "px-6 z-30")}>
 
-      {/* Mobile Hamburger */}
       <button
         onClick={toggleSidebar}
         className={cn(
@@ -63,7 +62,6 @@ export default function Navbar({ user, toggleSidebar }: NavbarProps) {
         <FaBars />
       </button>
 
-      {/* RIGHT */}
       <div className="ml-auto relative">
         <button
           onClick={() => setOpenDropdown(!openDropdown)}
@@ -85,7 +83,6 @@ export default function Navbar({ user, toggleSidebar }: NavbarProps) {
             className="text-sm text-slate-500" />
         </button>
 
-        {/* Dropdown */}
         {openDropdown && (
           <div
             className={cn(

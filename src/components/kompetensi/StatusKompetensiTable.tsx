@@ -69,7 +69,7 @@ export default function StatusKompetensiTable({ data }: Props) {
                         <th className="text-left p-3 md:p-4 text-sm font-semibold">Level</th>
                         <th className="text-left p-3 md:p-4 text-sm font-semibold">Tanggal</th>
                         <th className="text-left p-3 md:p-4 text-sm font-semibold">Status</th>
-                        <th className="text-left p-3 md:p-4 text-sm font-semibold text-center">Unduh SKK</th>
+                        <th className="text-center p-3 md:p-4 text-sm font-semibold ">Unduh SKK</th>
                     </tr>
                 </thead>
 

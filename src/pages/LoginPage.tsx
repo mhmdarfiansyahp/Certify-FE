@@ -4,8 +4,8 @@ import {
   FiLock,
   FiEye,
   FiEyeOff,
-  FiShield,
 } from "react-icons/fi";
+import logoCertify from '../assets/certify_logo-removebg-preview.svg';
 
 import { login } from "../service/authService";
 import type { LoginRequest } from "../types/auth";
@@ -53,27 +53,25 @@ export default function LoginPage() {
 
       <div className="w-full max-w-md">
 
-        {/* HEADER */}
         <div className="text-center mb-8">
-          <div className="w-12 h-12 mx-auto bg-indigo-600 rounded-2xl flex items-center justify-center shadow-md mb-4">
-            <FiShield className="text-white" />
+          <div className="mb-4">
+            <img
+              src={logoCertify}
+              alt="Certify Logo"
+              className="h-28 mx-auto object-contain transform hover:scale-105 transition-transform duration-300"
+            />
           </div>
 
-          <h1 className="text-xl font-semibold">CertifyPro</h1>
-
-          <p className="text-sm text-gray-500 mt-2">
-            Platform sertifikasi & kompetensi mahasiswa
+          <p className="text-sm font-medium text-gray-500 mt-4">
+            Student Certification & Competency Platform
           </p>
 
-          <div className="mt-3 text-xs text-gray-400">
-            Masuk untuk mengelola data asesmen & sertifikat
+          <div className="mt-3 text-xs text-gray-400 bg-gray-50 py-1.5 px-3 rounded-full inline-block border border-gray-100">
+            Log in to manage assessment data and certificates
           </div>
         </div>
 
-        {/* FORM CARD */}
         <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-lg">
-
-          {/* EMAIL */}
           <div className="relative mb-4">
             <FiMail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
 
@@ -89,7 +87,6 @@ export default function LoginPage() {
             />
           </div>
 
-          {/* PASSWORD */}
           <div className="relative mb-2">
             <FiLock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
 
@@ -113,27 +110,24 @@ export default function LoginPage() {
             </button>
           </div>
 
-          {/* LUPA PASSWORD */}
           <div className="flex justify-end mb-4">
             <button
               type="button"
               className="text-xs text-gray-500 hover:text-indigo-600 transition"
             >
-              Lupa password?
+              Forgot password?
             </button>
           </div>
 
-          {/* LOGIN BUTTON */}
           <button
             onClick={handleLogin}
             disabled={loading}
             className="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98]
             transition text-white font-medium shadow-sm disabled:opacity-50"
           >
-            {loading ? "Loading..." : "Masuk"}
+            {loading ? "Loading..." : "Login"}
           </button>
 
-          {/* ERROR */}
           {error && (
             <p className="text-red-500 text-xs mt-3 text-left">
               {error}
@@ -142,16 +136,15 @@ export default function LoginPage() {
 
           <div className="flex items-center gap-3 my-5">
             <div className="h-px flex-1 bg-gray-200"></div>
-            <span className="text-xs text-gray-400">atau</span>
+            <span className="text-xs text-gray-400">or</span>
             <div className="h-px flex-1 bg-gray-200"></div>
           </div>
 
           <button
             type="button"
             className="w-full py-3 rounded-xl border border-gray-200 bg-white hover:bg-gray-50
-            text-gray-700 font-medium transition"
-          >
-            Verifikasi Sertifikat
+            text-gray-700 font-medium transition">
+            Certificate Verification
           </button>
 
         </div>

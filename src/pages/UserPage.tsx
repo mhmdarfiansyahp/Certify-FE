@@ -38,10 +38,10 @@ export default function UserPage() {
     if (result.isConfirmed) {
       try {
         await deleteUser(id);
-        await toastSuccess("User berhasil dihapus");
+        await toastSuccess("User deleted successfully");
         fetchUsers();
       } catch (err) {
-        await toastError("Gagal menghapus user");
+        await toastError("Failed to delete user");
       }
     }
   };
@@ -50,16 +50,16 @@ export default function UserPage() {
     try {
       if (selected) {
         await updateUser(selected.id, form);
-        await toastSuccess("User berhasil diupdate");
+        await toastSuccess("User updated successfully");
       } else {
         await createUser({ ...form, status: true });
-        await toastSuccess("User berhasil ditambahkan");
+        await toastSuccess("User added successfully");
       }
 
       fetchUsers();
       setOpenModal(false);
     } catch (err) {
-      await toastError("Terjadi kesalahan");
+      await toastError("An error occurred");
     }
   };
 
@@ -92,15 +92,15 @@ export default function UserPage() {
       </div>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Manajemen User</h1>
-          <p className="text-sm text-gray-500">Kelola data pengguna sistem</p>
+          <h1 className="text-2xl font-bold text-gray-800">User Management</h1>
+          <p className="text-sm text-gray-500">Manage system user data</p>
         </div>
 
         <button
           onClick={handleAdd}
           className="px-5 py-3 rounded-xl bg-[#4647AE] hover:bg-[#3d3ea0] text-white"
         >
-          Tambah User
+          Add User
         </button>
       </div>
 

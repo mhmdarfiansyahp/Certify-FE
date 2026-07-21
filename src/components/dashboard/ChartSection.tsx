@@ -38,36 +38,22 @@ export default function ChartSection({ data }: Props) {
     labels,
     datasets: [
       {
-        label: "Kompeten",
-
-        data: data.map(
-          (d) => d.kompeten
-        ),
-
+        label: "Competent",
+        data: data.map((d) => d.kompeten),
         backgroundColor: "#22c55e",
         borderRadius: 8,
         barThickness: 28,
       },
-
       {
-        label: "Tidak Kompeten",
-
-        data: data.map(
-          (d) => d.tidak_kompeten
-        ),
-
+        label: "Not Competent",
+        data: data.map((d) => d.tidak_kompeten),
         backgroundColor: "#ef4444",
         borderRadius: 8,
         barThickness: 28,
       },
-
       {
-        label: "Tidak Hadir",
-
-        data: data.map(
-          (d) => d.tidak_hadir
-        ),
-
+        label: "Absent",
+        data: data.map((d) => d.tidak_hadir),
         backgroundColor: "#f59e0b",
         borderRadius: 8,
         barThickness: 28,
@@ -79,10 +65,8 @@ export default function ChartSection({ data }: Props) {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-
       legend: {
         position: "top" as const,
-
         labels: {
           usePointStyle: true,
           pointStyle: "circle",
@@ -92,14 +76,12 @@ export default function ChartSection({ data }: Props) {
           },
         },
       },
-
       tooltip: {
         backgroundColor: "#111827",
         padding: 12,
         cornerRadius: 12,
       },
     },
-
     scales: {
       x: {
         grid: {
@@ -128,21 +110,18 @@ export default function ChartSection({ data }: Props) {
         "bg-white rounded-3xl border border-gray-100 shadow-sm p-6 h-full flex flex-col"
       )}>
       <div className="mb-8">
-
         <h2 className={cn(
           "text-xl font-semibold",
-          "text-gray-800")}>
-
-          Rekap Kompetensi Per Prodi
+          "text-gray-800"
+        )}>
+          Competency Summary per Study Program
         </h2>
 
         <p className={cn(
-          "text-sm text-gray-500 mt-2")}>
-
-          Statistik kompetensi mahasiswa
-          berdasarkan program studi
+          "text-sm text-gray-500 mt-2"
+        )}>
+          Student competency statistics organized by study program
         </p>
-
       </div>
 
       <div className="flex-1 w-full min-h-100">

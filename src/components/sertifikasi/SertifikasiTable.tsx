@@ -38,40 +38,48 @@ export default function SertifikasiTable({
       cell: ({ row }) => row.index + 1,
     },
     {
-      header: "Program Studi",
+      header: "Study Program",
       cell: ({ row }) => row.original.prodi?.nama_prodi || "-",
     },
     {
-      header: "Nama Sertifikasi",
+      header: "Certification Name",
       accessorKey: "nama_sertifikasi",
     },
     {
-      header: "Lembaga",
+      header: "Institution",
       accessorKey: "lembaga",
     },
     {
       header: "Level",
-      cell: ({ row }) => (
-        <span
-          className={cn(
-            "px-3 py-1 rounded-full text-xs font-medium",
-            row.original.level === "Internasional"
-              ? "bg-indigo-100 text-indigo-700"
-              : "bg-amber-100 text-amber-700"
-          )}
-        >
-          {row.original.level}
-        </span>
-      ),
+      cell: ({ row }) => {
+        const level = row.original.level;
+        const isInternational =
+          (level as string) === "Internasional" ||
+          (level as string) === "International";
+
+        return (
+          <span
+            className={cn(
+              "px-3 py-1 rounded-full text-xs font-medium",
+              isInternational
+                ? "bg-indigo-100 text-indigo-700"
+                : "bg-amber-100 text-amber-700"
+            )}
+          >
+            {isInternational ? "International" : "National"}
+          </span>
+        );
+      },
     },
     {
-      header: "Kode Sertifikasi",
+      header: "Scheme Code",
       accessorKey: "scheme_code"
     },
     {
-      header: "Tanggal Sertifikasi",
+      header: "Certification Date",
       accessorKey: "tanggal_sertifikasi",
       cell: ({ row }) => {
+        if (!row.original.tanggal_sertifikasi) return "-";
         const date = new Date(row.original.tanggal_sertifikasi);
 
         return date.toLocaleDateString("en-GB", {
@@ -92,12 +100,12 @@ export default function SertifikasiTable({
               : "bg-red-100 text-red-700"
           )}
         >
-          {row.original.status ? "Aktif" : "Nonaktif"}
+          {row.original.status ? "Active" : "Inactive"}
         </span>
       ),
     },
     {
-      header: "Aksi",
+      header: "Action",
       cell: ({ row }) => (
         <div className="flex gap-2">
           <button
@@ -151,7 +159,7 @@ export default function SertifikasiTable({
           <input
             value={globalFilter}
             onChange={(e) => setGlobalFilter(e.target.value)}
-            placeholder="Cari sertifikasi..."
+            placeholder="Search certification..."
             className={cn(
               "w-full pl-10 pr-4 py-2.5 border border-gray-200",
               "rounded-xl text-sm focus:outline-none"
@@ -182,18 +190,29 @@ export default function SertifikasiTable({
           </thead>
 
           <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr
-                key={row.id}
-                className="border-t border-gray-100 hover:bg-gray-50 transition"
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="px-5 py-4 text-gray-700">
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
+            {table.getRowModel().rows.length > 0 ? (
+              table.getRowModel().rows.map((row) => (
+                <tr
+                  key={row.id}
+                  className="border-t border-gray-100 hover:bg-gray-50 transition"
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <td key={cell.id} className="px-5 py-4 text-gray-700">
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan={columns.length}
+                  className="text-center py-10 text-gray-400"
+                >
+                  No data found
+                </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
@@ -208,7 +227,11 @@ export default function SertifikasiTable({
           <button
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
-            className="w-9 h-9 rounded-lg border flex items-center justify-center"
+            className={cn(
+              "w-9 h-9 rounded-lg border flex items-center justify-center",
+              "hover:bg-gray-50 transition",
+              !table.getCanPreviousPage() && "opacity-40"
+            )}
           >
             <FaChevronLeft size={12} />
           </button>
@@ -220,7 +243,11 @@ export default function SertifikasiTable({
           <button
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
-            className="w-9 h-9 rounded-lg border flex items-center justify-center"
+            className={cn(
+              "w-9 h-9 rounded-lg border flex items-center justify-center",
+              "hover:bg-gray-50 transition",
+              !table.getCanNextPage() && "opacity-40"
+            )}
           >
             <FaChevronRight size={12} />
           </button>

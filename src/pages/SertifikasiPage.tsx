@@ -29,7 +29,7 @@ export default function SertifikasiPage() {
       setData(res.data);
     } catch (err) {
       console.error(err);
-      toastError("Gagal mengambil data");
+      toastError("Failed to fetch data");
     } finally {
       setLoading(false);
     }
@@ -55,10 +55,10 @@ export default function SertifikasiPage() {
     if (result.isConfirmed) {
       try {
         await deleteSertifikasi(id);
-        await toastSuccess("Data berhasil dihapus");
+        await toastSuccess("Data deleted successfully");
         fetchData();
       } catch (err) {
-        await toastError("Gagal menghapus");
+        await toastError("Failed to delete data");
       }
     }
   };
@@ -67,16 +67,16 @@ export default function SertifikasiPage() {
     try {
       if (selected) {
         await updateSertifikasi(selected.id, form);
-        await toastSuccess("Data berhasil diupdate");
+        await toastSuccess("Data updated successfully");
       } else {
         await createSertifikasi(form);
-        await toastSuccess("Data berhasil ditambahkan");
+        await toastSuccess("Data added successfully");
       }
 
       fetchData();
       setOpenModal(false);
     } catch (err) {
-      await toastError("Terjadi kesalahan");
+      await toastError("An error occurred");
     }
   };
 
@@ -90,14 +90,14 @@ export default function SertifikasiPage() {
         </Link>
         <span className="text-black">{">"}</span>
         <span className="font-medium text-[#4647AE]">
-          Sertifikasi
+          Certification
         </span>
       </div>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Sertifikasi</h1>
+          <h1 className="text-2xl font-bold text-gray-800">Certification</h1>
           <p className="text-sm text-gray-500">
-            Kelola data sertifikasi mahasiswa
+            Manage student certification data
           </p>
         </div>
 
@@ -105,7 +105,7 @@ export default function SertifikasiPage() {
           onClick={handleAdd}
           className="px-5 py-3 rounded-xl bg-[#4647AE] text-white hover:bg-[#3d3ea0]"
         >
-          Tambah Sertifikasi
+          Add Certification
         </button>
       </div>
 

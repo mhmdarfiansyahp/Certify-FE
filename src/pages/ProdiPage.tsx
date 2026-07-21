@@ -33,7 +33,7 @@ export default function ProdiPage() {
     const result = await confirmDialog();
     if (result.isConfirmed) {
       await deleteProdi(id);
-      await toastSuccess("Data berhasil dihapus");
+      await toastSuccess("Data deleted successfully");
       fetchProdi();
     }
   };
@@ -42,16 +42,16 @@ export default function ProdiPage() {
     try {
       if (selected) {
         await updateProdi(selected.id, form);
-        await toastSuccess("Data berhasil diupdate");
+        await toastSuccess("Data updated successfully");
       } else {
         await createProdi({ ...form, status: true });
-        await toastSuccess("Data berhasil ditambahkan");
+        await toastSuccess("Data added successfully");
       }
 
       fetchProdi();
       setOpenModal(false);
     } catch (err) {
-      await toastError("Terjadi kesalahan");
+      await toastError("An error occurred");
     }
   };
 
@@ -80,20 +80,21 @@ export default function ProdiPage() {
         </Link>
         <span className="text-black">{">"}</span>
         <span className="font-medium text-[#4647AE]">
-          Program Studi
+          Study Program
         </span>
       </div>
+
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Program Studi</h1>
-          <p className="text-sm text-gray-500">Kelola data prodi</p>
+          <h1 className="text-2xl font-bold text-gray-800">Study Program</h1>
+          <p className="text-sm text-gray-500">Manage study program data</p>
         </div>
 
         <button
           onClick={handleAdd}
           className="px-5 py-3 rounded-xl bg-[#4647AE] hover:bg-[#3d3ea0] text-white"
         >
-          Tambah Program Studi
+          Add Study Program
         </button>
       </div>
 

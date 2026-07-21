@@ -26,7 +26,7 @@ export default function UserModal({ user, onClose, onSave }: any) {
 
         setProdiList(res.data ?? res);
       } catch (err) {
-        console.log("Gagal fetch prodi", err);
+        console.log("Failed to fetch study programs", err);
       }
     };
 
@@ -48,23 +48,23 @@ export default function UserModal({ user, onClose, onSave }: any) {
   };
 
   return (
-    <div className=" fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
       <div className="bg-white rounded-lg w-full max-w-lg shadow-lg">
         <div className="p-5 border-b">
           <h2 className="text-lg font-semibold text-gray-800">
-            {isEdit ? "Edit User" : "Tambah User"}
+            {isEdit ? "Edit User" : "Add User"}
           </h2>
         </div>
 
         <div className="p-5 space-y-4">
           <div>
             <label className="text-sm text-gray-600">
-              Nama
+              Name
               {!isEdit && <span className="text-red-500 ml-1">*</span>}
             </label>
             <input
               className="w-full mt-1 p-2 border rounded-lg focus:outline-none"
-              placeholder="Nama"
+              placeholder="Name"
               value={form.name}
               onChange={(e) => {
                 setForm({ ...form, name: e.target.value });
@@ -134,11 +134,11 @@ export default function UserModal({ user, onClose, onSave }: any) {
               }}
             >
               <option value="" disabled>
-                Pilih Role
+                Select Role
               </option>
               <option value="admin">Admin</option>
-              <option value="instruktur">Instruktur</option>
-              <option value="mahasiswa">Mahasiswa</option>
+              <option value="instruktur">Instructor</option>
+              <option value="mahasiswa">Student</option>
             </select>
 
             {errors.role && (
@@ -148,7 +148,7 @@ export default function UserModal({ user, onClose, onSave }: any) {
 
           <div>
             <label className="text-sm text-gray-600">
-              Program Studi
+              Study Program
               {!isEdit && <span className="text-red-500 ml-1">*</span>}{" "}
             </label>
 
@@ -160,7 +160,7 @@ export default function UserModal({ user, onClose, onSave }: any) {
                 clearField(setErrors, "prodi_id");
               }}
             >
-              <option value="">Pilih Prodi</option>
+              <option value="">Select Study Program</option>
 
               {prodiList
                 .filter((p) => p.status === true)
@@ -185,7 +185,7 @@ export default function UserModal({ user, onClose, onSave }: any) {
             <input
               type="password"
               className="w-full mt-1 p-2 border rounded-lg focus:outline-none"
-              placeholder={isEdit ? "•••••• (opsional)" : "Password"}
+              placeholder={isEdit ? "•••••• (optional)" : "Password"}
               value={form.password}
               onChange={(e) => {
                 setForm({ ...form, password: e.target.value });
@@ -199,14 +199,14 @@ export default function UserModal({ user, onClose, onSave }: any) {
             onClick={onClose}
             className="px-4 py-2 border rounded-lg hover:bg-gray-50"
           >
-            Batal
+            Cancel
           </button>
 
           <button
             onClick={handleSubmit}
             className="px-4 py-2 bg-[#4647AE] text-white rounded-lg hover:bg-[#3d3ea0]"
           >
-            Simpan
+            Save
           </button>
         </div>
       </div>

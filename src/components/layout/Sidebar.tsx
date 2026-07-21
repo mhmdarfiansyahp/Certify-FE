@@ -6,8 +6,11 @@ import {
   FaClipboardCheck,
   FaAward,
 } from "react-icons/fa";
+import logoCertify from '../../assets/logo_aja.svg';
+
 import { NavLink } from "react-router-dom";
 import type { User } from "../../types/user";
+
 interface SidebarProps {
   user?: User | null;
   isOpen: boolean;
@@ -15,9 +18,12 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
+  const handleNavClick = () => {
+    setIsOpen(false);
+  };
+
   return (
     <>
-      {/* Overlay mobile */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-40 lg:hidden"
@@ -39,16 +45,19 @@ export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
         `}
         style={{ backgroundColor: "#4647AE" }}
       >
-        {/* LOGO */}
         <div
-          className="h-16 flex items-center px-6 border-b"
+          className="h-16 flex items-center gap-3 px-6 border-b"
           style={{ borderColor: "rgba(255,255,255,0.1)" }}
         >
           <img
-            src="/assets/image/palingbaru_logo.png"
-            alt="Logo"
-            className="h-10"
+            src={logoCertify}
+            alt="Certify Icon"
+            className="h-14 w-auto object-contain transform hover:rotate-6 transition-transform duration-300"
           />
+
+          <span className="font-bold text-xl tracking-wide text-white">
+            Certify
+          </span>
         </div>
 
         <div
@@ -59,19 +68,18 @@ export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
           <h2 className="font-semibold">{user?.name}</h2>
         </div>
 
-        {/* MENU */}
         <nav className="flex-1 p-4 flex flex-col gap-2">
           {user?.role === "admin" && (
             <>
               <NavLink
                 to="/dashboard"
-                className={({
-                  isActive,
-                }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition
-              ${isActive
+                onClick={handleNavClick}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-4 py-3 rounded-xl transition ${isActive
                     ? "text-white shadow-md"
                     : "text-white/80 hover:text-white hover:bg-white/10"
-                  }`}
+                  }`
+                }
                 style={({ isActive }) =>
                   isActive ? { backgroundColor: "#4382DF" } : {}
                 }
@@ -82,53 +90,53 @@ export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
 
               <NavLink
                 to="/prodi"
-                className={({
-                  isActive,
-                }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition
-              ${isActive
+                onClick={handleNavClick}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-4 py-3 rounded-xl transition ${isActive
                     ? "text-white shadow-md"
                     : "text-white/80 hover:text-white hover:bg-white/10"
-                  }`}
+                  }`
+                }
                 style={({ isActive }) =>
                   isActive ? { backgroundColor: "#4382DF" } : {}
                 }
               >
                 <FaUniversity />
-                Program Studi
+                Study Program
               </NavLink>
 
               <NavLink
                 to="/sertifikasi"
-                className={({
-                  isActive,
-                }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition
-              ${isActive
+                onClick={handleNavClick}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-4 py-3 rounded-xl transition ${isActive
                     ? "text-white shadow-md"
                     : "text-white/80 hover:text-white hover:bg-white/10"
-                  }`}
+                  }`
+                }
                 style={({ isActive }) =>
                   isActive ? { backgroundColor: "#4382DF" } : {}
                 }
               >
                 <FaCheckCircle />
-                Sertifikasi
+                Certifications
               </NavLink>
 
               <NavLink
                 to="/pengguna"
-                className={({
-                  isActive,
-                }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition
-              ${isActive
+                onClick={handleNavClick}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-4 py-3 rounded-xl transition ${isActive
                     ? "text-white shadow-md"
                     : "text-white/80 hover:text-white hover:bg-white/10"
-                  }`}
+                  }`
+                }
                 style={({ isActive }) =>
                   isActive ? { backgroundColor: "#4382DF" } : {}
                 }
               >
                 <FaUser />
-                Pengguna
+                Users
               </NavLink>
             </>
           )}
@@ -137,13 +145,13 @@ export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
             <>
               <NavLink
                 to="/dashboard"
-                className={({
-                  isActive,
-                }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition
-              ${isActive
+                onClick={handleNavClick}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-4 py-3 rounded-xl transition ${isActive
                     ? "text-white shadow-md"
                     : "text-white/80 hover:text-white hover:bg-white/10"
-                  }`}
+                  }`
+                }
                 style={({ isActive }) =>
                   isActive ? { backgroundColor: "#4382DF" } : {}
                 }
@@ -151,12 +159,12 @@ export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
                 <FaHome />
                 Dashboard
               </NavLink>
-              
+
               <NavLink
                 to="/asesmen"
+                onClick={handleNavClick}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 px-4 py-3 rounded-xl transition
-                ${isActive
+                  `flex items-center gap-3 px-4 py-3 rounded-xl transition ${isActive
                     ? "text-white shadow-md"
                     : "text-white/80 hover:text-white hover:bg-white/10"
                   }`
@@ -166,7 +174,7 @@ export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
                 }
               >
                 <FaClipboardCheck />
-                Asesmen Mahasiswa
+                Student Assessment
               </NavLink>
             </>
           )}
@@ -174,9 +182,9 @@ export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
           {user?.role === "mahasiswa" && (
             <NavLink
               to="/status-kompetensi"
+              onClick={handleNavClick}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-3 rounded-xl transition
-              ${isActive
+                `flex items-center gap-3 px-4 py-3 rounded-xl transition ${isActive
                   ? "text-white shadow-md"
                   : "text-white/80 hover:text-white hover:bg-white/10"
                 }`
@@ -186,7 +194,7 @@ export default function Sidebar({ user, isOpen, setIsOpen }: SidebarProps) {
               }
             >
               <FaAward />
-              Status Kompetensi
+              Competency Status
             </NavLink>
           )}
         </nav>

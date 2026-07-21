@@ -128,9 +128,7 @@ export default function Dashboard() {
       document.body.appendChild(link);
 
       link.click();
-
       link.remove();
-
     } catch (error) {
       console.error(error);
     }
@@ -168,12 +166,11 @@ export default function Dashboard() {
     <div className="p-6 bg-gray-50 space-y-6 min-h-full flex flex-col">
       <div>
         <h1 className="text-3xl font-bold text-gray-800">
-          Rekap Kompetensi Mahasiswa
+          Student Competency Summary
         </h1>
 
         <p className="text-gray-500 mt-2">
-          Monitoring real-time capaian kompetensi
-          per program studi
+          Real-time monitoring of competency achievements per study program
         </p>
       </div>
 
@@ -181,13 +178,12 @@ export default function Dashboard() {
       <div className={cn(
         "flex flex-col xl:flex-row",
         "xl:items-end",
-        "gap-4")}>
-
+        "gap-4"
+      )}>
         <div className="flex-1">
           <FilterBar
             sertifikasiList={sertifikasiList}
             onChange={(year, prodi, sertifikasi) => {
-
               setYear(year);
               setProdi(prodi);
               setSertifikasi(sertifikasi);
@@ -202,7 +198,6 @@ export default function Dashboard() {
         </div>
 
         <div className="flex items-center gap-3">
-
           <button
             onClick={handleExportExcel}
             className={cn(
@@ -212,8 +207,9 @@ export default function Dashboard() {
               "hover:bg-emerald-700",
               "shadow-sm hover:shadow-md",
               "text-white text-sm font-medium",
-              "transition")}>
-
+              "transition"
+            )}
+          >
             <FaFileExcel className="text-lg" />
             Export Excel
           </button>
@@ -226,8 +222,9 @@ export default function Dashboard() {
               "bg-red-600",
               "hover:bg-red-700",
               "text-white text-sm font-medium",
-              "transition")}>
-
+              "transition"
+            )}
+          >
             <FaFilePdf className="text-lg" />
             Export PDF
           </button>
@@ -238,23 +235,23 @@ export default function Dashboard() {
         "grid grid-cols-1",
         "xl:grid-cols-4",
         "gap-6",
-        "items-stretch flex-1")}>
+        "items-stretch flex-1"
+      )}>
 
-        {/* LEFT SIDE */}
         <div className={cn(
           "xl:col-span-1",
           "space-y-5",
-          "gap-5 flex flex-col")}>
+          "gap-5 flex flex-col"
+        )}>
 
-          {/* TOTAL MAHASISWA */}
           <div className={cn(
             "bg-white rounded-3xl",
             "border border-gray-100",
             "p-6 shadow-sm",
-            "flex-1 flex flex-col justify-between")}>
-
+            "flex-1 flex flex-col justify-between"
+          )}>
             <div className="flex items-center justify-between">
-              <p className="text-gray-500 text-sm font-medium">Total Mahasiswa</p>
+              <p className="text-gray-500 text-sm font-medium">Total Students</p>
               <div className="w-10 h-10 rounded-xl bg-indigo-100 flex items-center justify-center">
                 <FaUsers className="text-indigo-700 text-xl" />
               </div>
@@ -267,25 +264,22 @@ export default function Dashboard() {
             </div>
 
             <p className="text-sm text-emerald-600">
-              ↗ +12% dari semester lalu
+              ↗ +12% from last semester
             </p>
           </div>
 
-          {/* TINGKAT KOMPETENSI */}
           <div className={cn(
             "bg-white rounded-3xl",
             "border border-gray-100",
             "p-6 shadow-sm",
             "flex-1 flex flex-col justify-between"
           )}>
-
-            {/* Bagian Atas: Judul dan Icon Sejajar */}
             <div className="flex items-center justify-between">
               <p className="text-gray-500 text-sm font-medium">
-                Tingkat Kompetensi
+                Competency Rate
               </p>
               <div className={cn(
-                "w-10 h-10 rounded-xl", // Dikecilkan sedikit agar serasi
+                "w-10 h-10 rounded-xl",
                 "bg-emerald-100",
                 "flex items-center justify-center"
               )}>
@@ -293,14 +287,12 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Bagian Tengah: Angka Besar yang Mengisi Ruang Kosong */}
             <div className="flex-1 flex items-center justify-start my-4">
               <h2 className="text-6xl font-extrabold text-emerald-700">
                 {tingkatKompetensi}%
               </h2>
             </div>
 
-            {/* Bagian Bawah: PROGRESS BAR */}
             <div className="w-full">
               <div className={cn(
                 "w-full h-3 rounded-full",
@@ -318,21 +310,17 @@ export default function Dashboard() {
                 />
               </div>
             </div>
-
           </div>
 
-          {/* BELUM DINILAI */}
           <div className={cn(
             "bg-white rounded-3xl",
             "border border-gray-100",
             "p-6 shadow-sm",
             "flex-1 flex flex-col justify-between"
           )}>
-
-            {/* Bagian Atas: Judul dan Icon Sejajar */}
             <div className="flex items-center justify-between">
               <p className="text-gray-500 text-sm font-medium">
-                Belum Dinilai
+                Not Assessed
               </p>
               <div className={cn(
                 "w-10 h-10 rounded-xl",
@@ -343,7 +331,6 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Bagian Tengah: Angka Utama Menghabiskan Ruang Kosong */}
             <div className="flex-1 flex items-center justify-start my-4">
               <h2 className={cn(
                 "text-6xl font-extrabold",
@@ -353,9 +340,8 @@ export default function Dashboard() {
               </h2>
             </div>
 
-            {/* Bagian Bawah: Teks Pelengkap */}
             <p className="text-sm text-gray-500">
-              Daftar prodi aktif
+              Active study programs list
             </p>
           </div>
         </div>

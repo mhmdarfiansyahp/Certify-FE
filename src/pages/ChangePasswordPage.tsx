@@ -32,7 +32,7 @@ export default function ChangePasswordPage() {
     const [errors, setErrors] = useState<ApiErrors>({});
 
     const [strength, setStrength] = useState({
-        label: "Lemah",
+        label: "Weak",
         color: "text-red-500",
         bg: "bg-gray-200",
         width: "w-0"
@@ -50,7 +50,7 @@ export default function ChangePasswordPage() {
     useEffect(() => {
         const pass = formData.password;
         if (!pass) {
-            setStrength({ label: "Lemah", color: "text-gray-400", bg: "bg-gray-200", width: "w-0" });
+            setStrength({ label: "Weak", color: "text-gray-400", bg: "bg-gray-200", width: "w-0" });
             return;
         }
 
@@ -59,11 +59,11 @@ export default function ChangePasswordPage() {
         const isLongEnough = pass.length >= 8;
 
         if (isLongEnough && hasLetters && hasNumbers) {
-            setStrength({ label: "Kuat", color: "text-green-600", bg: "bg-green-600", width: "w-full" });
+            setStrength({ label: "Strong", color: "text-green-600", bg: "bg-green-600", width: "w-full" });
         } else if (pass.length >= 6 || (hasLetters && hasNumbers)) {
-            setStrength({ label: "Sedang", color: "text-orange-500", bg: "bg-orange-500", width: "w-2/3" });
+            setStrength({ label: "Medium", color: "text-orange-500", bg: "bg-orange-500", width: "w-2/3" });
         } else {
-            setStrength({ label: "Lemah", color: "text-red-500", bg: "bg-red-500", width: "w-1/4" });
+            setStrength({ label: "Weak", color: "text-red-500", bg: "bg-red-500", width: "w-1/4" });
         }
     }, [formData.password]);
 
@@ -74,14 +74,14 @@ export default function ChangePasswordPage() {
 
         try {
             const response = await changePassword(formData);
-            toastSuccess(response.message || "Kata sandi berhasil diperbarui!");
+            toastSuccess(response.message || "Password updated successfully!");
             setFormData({ current_password: "", password: "", password_confirmation: "" });
         } catch (error: any) {
             if (error.response && error.response.status === 422) {
                 setErrors(error.response.data.errors || {});
-                toastError("Periksa kembali form Anda.");
+                toastError("Please check your form entries.");
             } else {
-                toastError("Terjadi kesalahan sistem.");
+                toastError("A system error occurred.");
             }
         } finally {
             setIsLoading(false);
@@ -92,43 +92,37 @@ export default function ChangePasswordPage() {
         <div className="bg-gray-50 space-y-6">
             <div className="w-full space-y-6">
 
-                {/* Breadcrumb */}
                 <div className="flex items-center gap-2 text-sm">
                     <Link to="/dashboard" className="hover:text-[#4647AE] transition">
                         Dashboard
                     </Link>
                     <span>{">"}</span>
-                    <span className="text-[#4647AE] font-medium">Ubah Kata Sandi</span>
+                    <span className="text-[#4647AE] font-medium">Change Password</span>
                 </div>
 
-                {/* Header */}
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-800">Ubah Kata Sandi</h1>
+                    <h1 className="text-2xl font-bold text-gray-800">Change Password</h1>
                     <p className="text-sm text-gray-500 mt-1">
-                        Pastikan akun Anda tetap aman dengan memperbarui kata sandi secara berkala.
+                        Ensure your account remains secure by updating your password regularly.
                     </p>
                 </div>
 
-                {/* Card */}
                 <div className={cn("bg-white rounded-3xl p-10 shadow-sm border border-gray-200")}>
-
-                    {/* Info Box */}
                     <div className={cn("flex items-start gap-4 bg-[#F5F7FF] border border-[#D8DEFF] rounded-2xl p-5 mb-8")}>
                         <FaInfoCircle className="text-[#4647AE] mt-1" size={20} />
                         <div>
-                            <h3 className="font-semibold text-gray-800 mb-1">Keamanan Kata Sandi</h3>
+                            <h3 className="font-semibold text-gray-800 mb-1">Password Security</h3>
                             <p className="text-gray-600 leading-relaxed">
-                                Kata sandi baru harus memiliki minimal 8 karakter dan merupakan kombinasi dari huruf serta angka untuk keamanan maksimal.
+                                The new password must be at least 8 characters long and contain a mix of letters and numbers for maximum security.
                             </p>
                         </div>
                     </div>
 
                     <form onSubmit={handleSubmit} className="space-y-8">
 
-                        {/* Current Password */}
                         <div>
                             <label className={cn("block text-sm font-semibold tracking-wide text-gray-700 uppercase mb-3")}>
-                                Kata Sandi Saat Ini
+                                Current Password
                             </label>
                             <div className="relative">
                                 <input
@@ -156,13 +150,10 @@ export default function ChangePasswordPage() {
                             )}
                         </div>
 
-                        {/* New Password Grid */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                            {/* Password Baru */}
                             <div>
                                 <label className={cn("block text-sm font-semibold tracking-wide text-gray-700 uppercase mb-3")}>
-                                    Kata Sandi Baru
+                                    New Password
                                 </label>
                                 <div className="relative">
                                     <input
@@ -190,10 +181,9 @@ export default function ChangePasswordPage() {
                                 )}
                             </div>
 
-                            {/* Confirm Password */}
                             <div>
                                 <label className={cn("block text-sm font-semibold tracking-wide text-gray-700 uppercase mb-3")}>
-                                    Konfirmasi Kata Sandi Baru
+                                    Confirm New Password
                                 </label>
                                 <div className="relative">
                                     <input
@@ -216,10 +206,9 @@ export default function ChangePasswordPage() {
                             </div>
                         </div>
 
-                        {/* Password Strength */}
                         <div>
                             <div className="flex items-center justify-between mb-2">
-                                <span className="text-gray-600">Kekuatan Kata Sandi</span>
+                                <span className="text-gray-600">Password Strength</span>
                                 <span className={cn("font-semibold transition-colors duration-300", strength.color)}>
                                     {strength.label}
                                 </span>
@@ -229,7 +218,6 @@ export default function ChangePasswordPage() {
                             </div>
                         </div>
 
-                        {/* Divider & Action Buttons */}
                         <div className="border-t border-gray-200 pt-6">
                             <div className="flex items-center gap-4">
                                 <button
@@ -238,7 +226,7 @@ export default function ChangePasswordPage() {
                                     className="px-6 py-3 rounded-xl bg-[#4647AE] hover:bg-[#3d3ea0] text-white font-medium transition flex items-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     {isLoading ? <FaCircleNotch className="animate-spin" /> : <FaSave />}
-                                    {isLoading ? "Menyimpan..." : "Simpan Perubahan"}
+                                    {isLoading ? "Saving..." : "Save Changes"}
                                 </button>
 
                                 <button
@@ -247,7 +235,7 @@ export default function ChangePasswordPage() {
                                     disabled={isLoading}
                                     className="px-6 py-3 rounded-xl border border-gray-300 hover:bg-gray-100 text-gray-700 font-medium transition disabled:opacity-50"
                                 >
-                                    Batal
+                                    Cancel
                                 </button>
                             </div>
                         </div>
