@@ -10,6 +10,8 @@ import ProtectedRoute from "./ProtectedRoute";
 import StatusKompetensiPage from "../pages/StatusKompetensiPage";
 import ProfilePage from "../pages/ProfilePage";
 import ChangePasswordPage from "../pages/ChangePasswordPage";
+import ForgotPasswordPage from "../pages/ForgotPasswordPage";
+import ResetPasswordPage from "../pages/ResetPasswordPage";
 
 export default function AppRoutes() {
   return (
@@ -17,6 +19,8 @@ export default function AppRoutes() {
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
 
         <Route
           path="/dashboard"

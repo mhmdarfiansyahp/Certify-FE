@@ -1,11 +1,6 @@
 import { useState } from "react";
-import {
-  FiMail,
-  FiLock,
-  FiEye,
-  FiEyeOff,
-} from "react-icons/fi";
-import logoCertify from '../assets/certify_logo-removebg-preview.svg';
+import { FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
+import logoCertify from "../assets/certify_logo-removebg-preview.svg";
 
 import { login } from "../service/authService";
 import type { LoginRequest } from "../types/auth";
@@ -40,7 +35,6 @@ export default function LoginPage() {
       } else if (data.user.role === "admin") {
         navigate("/dashboard");
       }
-
     } catch (err: any) {
       setError(err.response?.data?.message || "Login gagal");
     } finally {
@@ -50,9 +44,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 text-gray-900 px-6">
-
       <div className="w-full max-w-md">
-
         <div className="text-center mb-8">
           <div className="mb-4">
             <img
@@ -79,9 +71,7 @@ export default function LoginPage() {
               type="email"
               placeholder="Email"
               value={form.email}
-              onChange={(e) =>
-                setForm({ ...form, email: e.target.value })
-              }
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
               className="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-sm
               outline-none focus:ring-2 focus:ring-indigo-500 transition"
             />
@@ -94,9 +84,7 @@ export default function LoginPage() {
               type={showPw ? "text" : "password"}
               placeholder="Password"
               value={form.password}
-              onChange={(e) =>
-                setForm({ ...form, password: e.target.value })
-              }
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
               className="w-full pl-10 pr-10 py-3 rounded-xl bg-gray-50 border border-gray-200 text-sm
               outline-none focus:ring-2 focus:ring-indigo-500 transition"
             />
@@ -113,6 +101,7 @@ export default function LoginPage() {
           <div className="flex justify-end mb-4">
             <button
               type="button"
+              onClick={() => navigate("/forgot-password")} 
               className="text-xs text-gray-500 hover:text-indigo-600 transition"
             >
               Forgot password?
@@ -129,9 +118,7 @@ export default function LoginPage() {
           </button>
 
           {error && (
-            <p className="text-red-500 text-xs mt-3 text-left">
-              {error}
-            </p>
+            <p className="text-red-500 text-xs mt-3 text-left">{error}</p>
           )}
 
           <div className="flex items-center gap-3 my-5">
@@ -143,10 +130,10 @@ export default function LoginPage() {
           <button
             type="button"
             className="w-full py-3 rounded-xl border border-gray-200 bg-white hover:bg-gray-50
-            text-gray-700 font-medium transition">
+            text-gray-700 font-medium transition"
+          >
             Certificate Verification
           </button>
-
         </div>
       </div>
     </div>
